@@ -1,0 +1,47 @@
+﻿<Window x:Class="TourAgency_.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TourAgency_"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+
+        </Grid.ColumnDefinitions>
+        
+        <TabControl>
+            <TabItem Name ="Contract">
+                <TabItem.Header>
+                    <TextBlock Text="Контракты"/>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <DataGrid Name="contract"
+          Loaded="Contract_Loaded" 
+          IsReadOnly="True"/>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Name ="wha">
+                <TabItem.Header>
+                    <TextBlock Text="Добавить данные"/>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <DatePicker Name="datePicker1"/>
+                        <DatePicker Name="datePicker2"/>
+                        <Button Name="getConracts" 
+                                Width="350" 
+                                Height="30"
+                                HorizontalAlignment="Center" Click="getConracts_Click">
+                            <TextBlock Text="Получить данные"/>
+                        </Button>
+                        <DataGrid Name="contracts"
+Loaded="Contract_Loaded" 
+IsReadOnly="True"/>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
