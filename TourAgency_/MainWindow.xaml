@@ -5,43 +5,242 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourAgency_"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
+        Title="MainWindow" Height="450" Width="800"
+        >
+    <Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
 
-        </Grid.ColumnDefinitions>
-        
-        <TabControl>
-            <TabItem Name ="Contract">
-                <TabItem.Header>
-                    <TextBlock Text="Контракты"/>
-                </TabItem.Header>
-                <TabItem.Content>
-                    <DataGrid Name="contract"
-          Loaded="Contract_Loaded" 
-          IsReadOnly="True"/>
-                </TabItem.Content>
-            </TabItem>
-            <TabItem Name ="wha">
-                <TabItem.Header>
-                    <TextBlock Text="Добавить данные"/>
-                </TabItem.Header>
-                <TabItem.Content>
-                    <StackPanel>
-                        <DatePicker Name="datePicker1"/>
-                        <DatePicker Name="datePicker2"/>
-                        <Button Name="getConracts" 
+            </Grid.ColumnDefinitions>
+            <!--<DataGrid Name="contract"
+      Loaded="Contract_Loaded" 
+      IsReadOnly="True"/>-->
+            <TabControl TabStripPlacement="Left">
+
+                <TabItem Name ="Contract">
+                    <TabItem.Header>
+                        <TextBlock Text="Контракты"/>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button 
+                            Margin="10,10,10,10"
+                            Grid.Column="0"
+                            Width="auto" 
+                            Height="auto" Click="SaveContractDataButton_Click">
+                                <TextBlock Text="Cохранить изменения"/>
+                            </Button>
+                            <Button 
+                            Margin="10,10,10,10"
+                            Grid.Column="1"
+                            Width="auto" 
+                            Height="auto" Click="AddContractButton_Click">
+                                <TextBlock Text="Добавить контракт"/>
+                            </Button>
+                            <Button 
+                            Margin="10,10,10,10"
+                            Grid.Column="2"
+                            Width="auto" 
+                            Height="auto" Click="UpdateContractButton_Click">
+                                <TextBlock Text="Изменить данные"/>
+                            </Button>
+                            <Button 
+                            Margin="10,10,10,10"
+                            Grid.Column="3"
+                            Width="auto" 
+                            Height="auto" Click="DeleteContractButton_Click">
+                                <TextBlock Text="Удалить контракт"/>
+                            </Button>
+                            <DataGrid
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="4"
+                              Name="contract"
+                              Loaded="Contract_Loaded" 
+                              IsReadOnly="True">
+                                
+                            </DataGrid>
+
+
+                        </Grid>
+                    </TabItem.Content>
+                    
+                </TabItem>
+                <TabItem Name ="Employee">
+                    <TabItem.Header>
+                        <TextBlock Text="Сотрудники"/>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button 
+                Margin="10,10,10,10"
+                Grid.Column="0"
+                Width="auto" 
+                Height="auto" Click="SaveEmployeeDataButton_Click">
+                                <TextBlock Text="Cохранить изменения"/>
+                            </Button>
+                            <Button 
+                Margin="10,10,10,10"
+                Grid.Column="1"
+                Width="auto" 
+                Height="auto" Click="AddEmployeeButton_Click">
+                                <TextBlock Text="Добавить сотрудника"/>
+                            </Button>
+                            <Button 
+                Margin="10,10,10,10"
+                Grid.Column="2"
+                Width="auto" 
+                Height="auto" Click="UpdateEmployeeButton_Click">
+                                <TextBlock Text="Изменить данные"/>
+                            </Button>
+                            <Button 
+                Margin="10,10,10,10"
+                Grid.Column="3"
+                Width="auto" 
+                Height="auto" Click="DeleteEmployeeButton_Click">
+                                <TextBlock Text="Удалить данные сотрудника"/>
+                            </Button>
+                            <DataGrid
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
+                  Name="employee"
+                  Loaded="Employee_Loaded" 
+                  IsReadOnly="True"/>
+
+
+                        </Grid>
+                    </TabItem.Content>
+                </TabItem>
+
+                <TabItem Name ="Client">
+                    <TabItem.Header>
+                        <TextBlock Text="Клиенты"/>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button 
+                                Margin="10,10,10,10"
+                                Grid.Column="0"
+                                Width="auto" 
+                                Height="auto" Click="SaveEmployeeDataButton_Click">
+                                <TextBlock Text="Cохранить изменения"/>
+                            </Button>
+                            <Button 
+                                Margin="10,10,10,10"
+                                Grid.Column="1"
+                                Width="auto" 
+                                Height="auto" Click="AddEmployeeButton_Click">
+                                <TextBlock Text="Добавить сотрудника"/>
+                            </Button>
+                            <Button 
+                                Margin="10,10,10,10"
+                                Grid.Column="2"
+                                Width="auto" 
+                                Height="auto" Click="UpdateEmployeeButton_Click">
+                                <TextBlock Text="Изменить данные"/>
+                            </Button>
+                            <Button 
+                                Margin="10,10,10,10"
+                                Grid.Column="3"
+                                Width="auto" 
+                                Height="auto" Click="DeleteContractButton_Click">
+                                <TextBlock Text="Удалить данные сотрудника"/>
+                            </Button>
+                            <DataGrid
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="4"
+                                  Name="client"
+                                  Loaded="Contract_Loaded" 
+                                  IsReadOnly="True"/>
+
+
+                        </Grid>
+                    </TabItem.Content>
+                </TabItem>
+
+                <TabItem Name ="Request">
+                    <TabItem.Header>
+                        <TextBlock Text="Получить данные"/>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <StackPanel>
+                            <DatePicker 
+                            Name="datePicker1"
+                            Width="300"/>
+                            <DatePicker 
+                            Width="300"
+                            Name="datePicker2"/>
+                            <TextBox x:Name="value"
+                                 Width="300"/>
+                            <Button Name="getConracts" 
                                 Width="350" 
                                 Height="30"
                                 HorizontalAlignment="Center" Click="getConracts_Click">
-                            <TextBlock Text="Получить данные"/>
-                        </Button>
-                        <DataGrid Name="contracts"
-Loaded="Contract_Loaded" 
-IsReadOnly="True"/>
-                    </StackPanel>
-                </TabItem.Content>
-            </TabItem>
-        </TabControl>
-    </Grid>
+                                <TextBlock Text="Получить данные"/>
+                            </Button>
+                            <DataGrid Name="contractsByMonth" 
+                            IsReadOnly="True"/>
+                        </StackPanel>
+                    </TabItem.Content>
+                </TabItem>
+
+
+
+                <TabItem Name ="Employees">
+                    <TabItem.Header>
+                        <TextBlock Text="Добавить данные"/>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <StackPanel>
+                            <Button Name ="save"
+                            Height="25"
+                            Width="250"
+                            HorizontalAlignment="Left" Click="save_Click">
+                                <TextBlock Text="Сохранить"/>
+                            </Button>
+                            <DataGrid Name="employees"
+                              Loaded="employees_Loaded"
+                        IsReadOnly="False"/>
+                        </StackPanel>
+                    </TabItem.Content>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Border>
 </Window>
