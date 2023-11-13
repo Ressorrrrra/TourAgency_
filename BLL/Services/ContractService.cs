@@ -1,7 +1,5 @@
 ﻿
-using DAL;
 using DomainLevel;
-using Interfaces;
 using Interfaces.DTO;
 using Interfaces.Repository;
 using Interfaces.Services;
@@ -16,58 +14,11 @@ namespace BLL.Services
 {
     public class ContractService : IContractService
     {
-        //private TourAgencyContext db;
         private IDbRepos db;
         public ContractService(IDbRepos repos)
         {
             db = repos;
         }
-
-        //public List<ContractDto> GetAllContracts()
-        //{
-        //    return db.Contracts.ToList().Select(i => new ContractDto(i)).ToList();
-        //}
-
-        //public List<EmployeeDto> GetAllEmployees()
-        //{
-        //    return db.Employees.ToList().Select(i => new EmployeeDto(i)).ToList();
-        //}
-
-
-        //public ContractDto GetContract(int Id)
-        //{
-        //    return new ContractDto(db.Contracts.Find(Id));
-        //}
-
-        //public void CreateContract(ContractDto c)
-        //{
-        //    db.Contracts.Add(new Contract() { TotalCost = c.TotalCost, Employee = db.Employees.Find(c.EmployeeId), Client = db.Clients.Find(c.EmployeeId), Tour = db.Tours.Find(c.TourId), ConclusionDate = c.ConclusionDate});
-        //    Save(db);
-        //    //db.Contracts.Attach(p);
-        //}
-
-
-
-        //public void UpdateContract(ContractDto p)
-        //{
-        //    Contract ph = db.Contracts.Find(p.Id);
-        //    ph.Employee = db.Employees.Find(p.EmployeeId);
-        //    ph.Tour = db.Tours.Find(p.TourId);
-        //    ph.Client = db.Clients.Find(p.ClientId);
-        //    ph.TotalCost = p.TotalCost;
-        //    ph.ConclusionDate = p.ConclusionDate;
-        //    Save(db);
-        //}
-
-        //public void DeleteContract(int id)
-        //{
-        //    Contract p = db.Contracts.Find(id);
-        //    if (p != null)
-        //    {
-        //        db.Contracts.Remove(p);
-        //        Save(db);
-        //    }
-        //}
 
 
         public bool Save(IDbRepos db)
@@ -88,20 +39,20 @@ namespace BLL.Services
 
         public void CreateContract(ContractDto contract)
         {
-            db.Contracts.Create(new Contract() { TotalCost = contract.TotalCost, Employee = db.Employees.GetItem(contract.EmployeeId), Client = db.Cleints.GetItem(contract.EmployeeId), Tour = db.Tours.GetItem(contract.TourId), ConclusionDate = contract.ConclusionDate });
+            db.Contracts.Create(new Contract() { TotalCost = contract.TotalCost, Employee = db.Employees.GetItem(contract.EmployeeId), Client = db.Clients.GetItem(contract.EmployeeId), Tour = db.Tours.GetItem(contract.TourId), ConclusionDate = contract.ConclusionDate });
             Save(db);
             //db.Contracts.Attach(p);
         }
 
         public void UpdateContract(ContractDto contract)
         {
-            Contract ph = db.Contracts.GetItem(contract.Id);
-            ph.Employee = db.Employees.GetItem(contract.EmployeeId);
-            ph.Tour = db.Tours.GetItem(contract.TourId);
-            ph.Client = db.Cleints.GetItem(contract.ClientId);
-            ph.TotalCost = contract.TotalCost;
-            ph.ConclusionDate = contract.ConclusionDate;
-            db.Contracts.Update(ph);
+            Contract cn = db.Contracts.GetItem(contract.Id);
+            cn.Employee = db.Employees.GetItem(contract.EmployeeId);
+            cn.Tour = db.Tours.GetItem(contract.TourId);
+            cn.Client = db.Clients.GetItem(contract.ClientId);
+            cn.TotalCost = contract.TotalCost;
+            cn.ConclusionDate = contract.ConclusionDate;
+            db.Contracts.Update(cn);
             Save(db);
         }
 

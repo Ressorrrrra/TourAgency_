@@ -13,7 +13,13 @@ namespace Interfaces.Repository
         IRepository<Contract> Contracts {  get; }
         IRepository<Employee> Employees { get; }
         IRepository<Tour> Tours { get; }
-        IRepository<Client> Cleints { get; }
+        IRepository<Client> Clients { get; }
+
+        IRepository<Direction> Directions { get; }
+
+        IRepository<TransportType> TransportTypes { get; }
+
+        IRepository<TourOperator> TourOperators { get; }
         IReportsRepository Reports {  get; }
         int Save();
     }

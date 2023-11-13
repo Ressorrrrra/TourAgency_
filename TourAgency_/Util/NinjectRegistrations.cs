@@ -15,6 +15,12 @@ namespace TourAgency_.Util
         {
             Bind<IContractService>().To<ContractService>();
             Bind<IEmployeeService>().To<EmployeeService>();
+            Bind<IClientService>().To<ClientService>();
+            Bind<ITourService>().To<TourService>();
+            Bind<IDirectionService>().To<IDirectionService>();
+            Bind<ITransportTypeService>().To<TransportTypeService>();
+            Bind<ITourOperatorService>().To<TourOperatorService>();
+
         }
     }
 }

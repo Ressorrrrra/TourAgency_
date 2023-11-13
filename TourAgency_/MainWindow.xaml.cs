@@ -41,6 +41,11 @@ namespace TourAgency_
 
         IContractService contractService;
         IEmployeeService employeeService;
+        IClientService clientService;
+        ITourService tourService;
+        IDirectionService directionService;
+        ITransportTypeService transportTypeService;
+        ITourOperatorService tourOperatorService;
 
 
         //DataTable dataTable1 = new DataTable("employee");
@@ -56,6 +61,11 @@ namespace TourAgency_
 
             contractService = kernel.Get<IContractService>();
             employeeService = kernel.Get<IEmployeeService>();
+            clientService = kernel.Get<IClientService>();
+            tourService = kernel.Get<ITourService>();
+            directionService = kernel.Get<IDirectionService>();
+            transportTypeService = kernel.Get<ITransportTypeService>();
+            tourOperatorService = kernel.Get<ITourOperatorService>();
             InitializeComponent();
             //connectionString = ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
             //employeeAdapter = new NpgsqlDataAdapter("SELECT * from employee", connectionString);
@@ -77,6 +87,20 @@ namespace TourAgency_
             LoadData(employee, data);
         }
 
+        private void Client_Loaded(object sender, RoutedEventArgs e)
+        {
+            var data = clientService.GetAllClients();
+            LoadData(client, data);
+
+        }
+
+        private void Tour_Loaded(object sender, RoutedEventArgs e)
+        {
+            var data = tourService.GetAllTours();
+            LoadData(client, data);
+
+        }
+
         private void LoadData(DataGrid datagrid, object data)
         {
             datagrid.ItemsSource = (System.Collections.IEnumerable)data;
@@ -85,36 +109,6 @@ namespace TourAgency_
 
         private void getConracts_Click(object sender, RoutedEventArgs e)
         {
-            //using (NpgsqlConnection sqlConnection = new NpgsqlConnection(connectionString))
-            //{
-            //    NpgsqlCommand sqlCommand = new NpgsqlCommand("select * from getContractsForAllEmployees(@date1,@date2)", sqlConnection)
-            //    {
-            //        Parameters =
-            //        {
-            //            new NpgsqlParameter("@date1", NpgsqlDbType.Date){Value = datePicker1.SelectedDate},
-            //            new NpgsqlParameter("@date2", NpgsqlDbType.Date){Value= datePicker2.SelectedDate},
-            //        }
-            //    };
-            //    sqlConnection.Open();
-            //    sqlCommand.Prepare();
-            //    DataTable dataTable = new DataTable("report1");
-            //    var sqlAdapter = new NpgsqlDataAdapter(sqlCommand);
-            //    sqlAdapter.Fill(dataTable);
-
-            //    contracts.ItemsSource = dataTable.DefaultView;
-            //}
-            //ReportService service = new ReportService();
-            //if (datePicker1.SelectedDate != null && datePicker2.SelectedDate != null)
-            //{
-            //    //contractsByMonth.ItemsSource = service.ExecuteProcedure(DateOnly.FromDateTime(datePicker1.SelectedDate.Value), DateOnly.FromDateTime(datePicker2.SelectedDate.Value));
-
-
-            //}
-            //if (int.TryParse(value.Text, out int value1))
-            //{
-            //    contractsByMonth.ItemsSource = service.ExecuteProcedure(value1);
-            //}
-            //contractsByMonth.ItemsSource = service.ExecuteProcedure(value.Text);
         }
 
         private void employees_Loaded(object sender, RoutedEventArgs e)
@@ -142,6 +136,8 @@ namespace TourAgency_
         private void AddContractButton_Click(object sender, RoutedEventArgs e)
         {
             CreateContract addContractWindow = new CreateContract();
+            addContractWindow.Employee.ItemsSource = employeeService.GetAllEmployees().Select(i => new { Id = i.Id, Name = i.Name }).ToList();
+            addContractWindow.Client.ItemsSource = clientService.GetAllClients().Select(i => new { Id = i.Id, Name = i.Name }).ToList();
             addContractWindow.ShowDialog();
 
         }
@@ -258,6 +254,183 @@ namespace TourAgency_
                     MessageBox.Show($"Данные о сотруднике '{name}' удалены.");
                     var data = employeeService.GetAllEmployees();
                     LoadData(employee, data);
+                }
+            }
+        }
+
+        private void SaveClientDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            // ContractService service = new ContractService();
+
+        }
+        private void AddClientButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreateClient f = new CreateClient();
+            Nullable<bool> dialogResult = f.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                ClientDto cl = new ClientDto();
+                cl.Name = f.Name.Text;
+                cl.DateOfBirth = DateOnly.FromDateTime(f.Date.SelectedDate.Value);
+                cl.PassportNumber = f.Passport.Text;
+                cl.InternationalPassportNumber = f.InternationalPassport.Text;
+                clientService.CreateClient(cl);
+                MessageBox.Show("Сотрудник добавлен!");
+
+
+                var data = clientService.GetAllClients();
+                LoadData(client, data);
+            }
+        }
+        private void UpdateClientButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (getSelectedRow(client) is ClientDto row)
+            {
+                CreateClient f = new CreateClient();
+                f.Name.Text = row.Name;
+                f.Date.SelectedDate = row.DateOfBirth.ToDateTime(TimeOnly.Parse("10:00 AM"));
+                f.Passport.Text = row.PassportNumber;
+                f.InternationalPassport.Text = row.InternationalPassportNumber;
+
+                Nullable<bool> dialogResult = f.ShowDialog();
+                if (dialogResult == true)
+                {
+                    ClientDto cl = new ClientDto();
+                    cl.Id = row.Id;
+                    cl.Name = f.Name.Text;
+                    cl.DateOfBirth = DateOnly.FromDateTime(f.Date.SelectedDate.Value);
+                    cl.PassportNumber = f.Passport.Text;
+                    cl.InternationalPassportNumber = f.InternationalPassport.Text;
+
+                    clientService.UpdateClient(cl);
+                    MessageBox.Show("Данные о клиенте обновлены!");
+
+
+                    var data = clientService.GetAllClients();
+                    LoadData(client, data);
+                }
+            }
+
+        }
+        private void DeleteClientButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (getSelectedRow(client) is ClientDto row)
+            {
+                if (MessageBox.Show($"Вы уверены, что хотите удалить данные клиента '{row.Name}'? Это действие вы не сможете отменить.",
+                    "Удаление данных",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    string name = row.Name;
+                    clientService.DeleteClient(row.Id);
+                    MessageBox.Show($"Данные о клиенте '{name}' удалены.");
+                    var data = clientService.GetAllClients();
+                    LoadData(client, data);
+                }
+            }
+        }
+
+        private void SaveTourDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            // ContractService service = new ContractService();
+
+        }
+        private void AddTourButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreateTour f = new CreateTour();
+            f.Direction.ItemsSource = directionService.GetAllDirections().Select(i => new { Id = i.Id, Name = "Страна: " + i.Country + "| Город" + i.City}).ToList();
+            f.TransportType.ItemsSource = transportTypeService.GetAllTransportTypes().Select(i => new { Id = i.Id, Name = i.Name }).ToList();
+            f.TourOperator.ItemsSource = tourOperatorService.GetAllTourOperators().Select(i => new { Id = i.Id, Name = i.Name }).ToList();
+            Nullable<bool> dialogResult = f.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                TourDto t = new TourDto();
+                t.Name = f.Name.Text;
+                t.Description = f.Description.Text;
+                t.ArrivalDate = DateOnly.FromDateTime(f.ArrivalDate.SelectedDate.Value);
+                t.DepartureDate = DateOnly.FromDateTime(f.DepartureDate.SelectedDate.Value);
+                t.Direction = directionService.GetDirection((int)f.Direction.SelectedValue);
+                t.TransportType = transportTypeService.GetTransportType((int)f.TransportType.SelectedValue);
+                t.TourOperator = tourOperatorService.GetTourOperator((int)f.TourOperator.SelectedValue);
+                if (int.TryParse(f.HotelStarsCount.Text, out int value))
+                {
+                    t.HotelStarsCount = value;
+                }
+
+                if (int.TryParse(f.Price.Text, out int value1))
+                {
+                    t.Price = value1;
+                }
+                tourService.CreateTour(t);
+                MessageBox.Show("Тур добавлен!");
+
+
+                var data = clientService.GetAllClients();
+                LoadData(client, data);
+            }
+        }
+        private void UpdateTourButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (getSelectedRow(tour) is TourDto row)
+            {
+                CreateTour f = new CreateTour();
+                f.Name.Text = row.Name;
+                f.Description.Text = row.Description;
+                f.ArrivalDate.SelectedDate = row.ArrivalDate.ToDateTime(TimeOnly.Parse("10:00 AM"));
+                f.DepartureDate.SelectedDate = row.DepartureDate.ToDateTime(TimeOnly.Parse("10:00 AM"));
+                f.Direction.SelectedValue = row.Direction.Id;
+                f.TransportType.SelectedValue = row.TransportType.Id;
+                f.TourOperator.SelectedValue = row.TourOperator.Id;
+                f.Price.Text = row.Price.ToString();
+                f.HotelStarsCount.Text = row.HotelStarsCount.ToString();
+
+                Nullable<bool> dialogResult = f.ShowDialog();
+                if (dialogResult == true)
+                {
+                    TourDto t = new TourDto();
+                    t.Name = f.Name.Text;
+                    t.Description = f.Description.Text;
+                    t.ArrivalDate = DateOnly.FromDateTime(f.ArrivalDate.SelectedDate.Value);
+                    t.DepartureDate = DateOnly.FromDateTime(f.DepartureDate.SelectedDate.Value);
+                    t.Direction = directionService.GetDirection((int)f.Direction.SelectedValue);
+                    t.TransportType = transportTypeService.GetTransportType((int)f.TransportType.SelectedValue);
+                    t.TourOperator = tourOperatorService.GetTourOperator((int)f.TourOperator.SelectedValue);
+                    if (int.TryParse(f.HotelStarsCount.Text, out int value))
+                    {
+                        t.HotelStarsCount = value;
+                    }
+
+                    if (int.TryParse(f.Price.Text, out int value1))
+                    {
+                        t.Price = value1;
+                    }
+
+                    tourService.UpdateTour(t);
+                    MessageBox.Show("Данные о туре обновлены!");
+
+
+                    var data = tourService.GetAllTours();
+                    LoadData(tour, data);
+                }
+            }
+
+        }
+        private void DeleteTourButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (getSelectedRow(tour) is TourDto row)
+            {
+                if (MessageBox.Show($"Вы уверены, что хотите удалить данные о туре '{row.Name}'? Это действие вы не сможете отменить.",
+                    "Удаление данных",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    string name = row.Name;
+                    clientService.DeleteClient(row.Id);
+                    MessageBox.Show($"Данные о туре '{name}' удалены.");
+                    var data = clientService.GetAllClients();
+                    LoadData(client, data);
                 }
             }
         }

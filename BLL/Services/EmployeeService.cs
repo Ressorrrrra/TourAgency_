@@ -44,9 +44,10 @@ namespace BLL.Services
 
         public void UpdateEmployee(EmployeeDto p)
         {
-            Employee ph = db.Employees.GetItem(p.Id);
-            ph.Name = p.Name;
-            ph.ContractCount = p.ContractCount;
+            Employee e = db.Employees.GetItem(p.Id);
+            e.Name = p.Name;
+            e.ContractCount = p.ContractCount;
+            db.Employees.Update(e);
             db.Save();
         }
 

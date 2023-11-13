@@ -10,6 +10,7 @@ namespace DomainLevel
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public Direction Direction { get; set; }
         public TransportType TransportType { get; set; }
         public TourOperator TourOperator { get; set; }

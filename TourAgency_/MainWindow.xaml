@@ -157,28 +157,28 @@
                                 Margin="10,10,10,10"
                                 Grid.Column="0"
                                 Width="auto" 
-                                Height="auto" Click="SaveEmployeeDataButton_Click">
+                                Height="auto" Click="SaveClientDataButton_Click">
                                 <TextBlock Text="Cохранить изменения"/>
                             </Button>
                             <Button 
                                 Margin="10,10,10,10"
                                 Grid.Column="1"
                                 Width="auto" 
-                                Height="auto" Click="AddEmployeeButton_Click">
-                                <TextBlock Text="Добавить сотрудника"/>
+                                Height="auto" Click="AddClientButton_Click">
+                                <TextBlock Text="Добавить клиента"/>
                             </Button>
                             <Button 
                                 Margin="10,10,10,10"
                                 Grid.Column="2"
                                 Width="auto" 
-                                Height="auto" Click="UpdateEmployeeButton_Click">
+                                Height="auto" Click="UpdateClientButton_Click">
                                 <TextBlock Text="Изменить данные"/>
                             </Button>
                             <Button 
                                 Margin="10,10,10,10"
                                 Grid.Column="3"
                                 Width="auto" 
-                                Height="auto" Click="DeleteContractButton_Click">
+                                Height="auto" Click="DeleteClientButton_Click">
                                 <TextBlock Text="Удалить данные сотрудника"/>
                             </Button>
                             <DataGrid
@@ -186,8 +186,66 @@
                                 Grid.Column="0"
                                 Grid.ColumnSpan="4"
                                   Name="client"
-                                  Loaded="Contract_Loaded" 
+                                  Loaded="Client_Loaded" 
                                   IsReadOnly="True"/>
+
+
+                        </Grid>
+                    </TabItem.Content>
+                </TabItem>
+
+                <TabItem Name ="Tour">
+                    <TabItem.Header>
+                        <TextBlock Text="Туры"/>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button 
+                Margin="10,10,10,10"
+                Grid.Column="0"
+                Width="auto" 
+                Height="auto" Click="SaveClientDataButton_Click">
+                                <TextBlock Text="Cохранить изменения"/>
+                            </Button>
+                            <Button 
+                Margin="10,10,10,10"
+                Grid.Column="1"
+                Width="auto" 
+                Height="auto" Click="AddClientButton_Click">
+                                <TextBlock Text="Добавить тур"/>
+                            </Button>
+                            <Button 
+                Margin="10,10,10,10"
+                Grid.Column="2"
+                Width="auto" 
+                Height="auto" Click="UpdateClientButton_Click">
+                                <TextBlock Text="Изменить данные"/>
+                            </Button>
+                            <Button 
+                Margin="10,10,10,10"
+                Grid.Column="3"
+                Width="auto" 
+                Height="auto" Click="DeleteClientButton_Click">
+                                <TextBlock Text="Удалить данные тура"/>
+                            </Button>
+                            <DataGrid
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
+                  Name="tour"
+                  Loaded="Tour_Loaded" 
+                  IsReadOnly="True"/>
 
 
                         </Grid>

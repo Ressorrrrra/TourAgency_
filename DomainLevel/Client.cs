@@ -10,11 +10,10 @@ namespace DomainLevel
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public int? PassportNumber { get; set; }
+        public DateOnly DateOfBirth { get; set; }
+        public string? PassportNumber { get; set; }
 
-        public int? InternationalPassportNumber { get; set; }
-        public string TourCount { get; set; }
+        public string? InternationalPassportNumber { get; set; }
 
     }
 

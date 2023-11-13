@@ -59,13 +59,17 @@
             Grid.Row="0"
             Grid.Column="1" 
             Margin="30,10,30,10"
-            x:Name="Employee"/>
+            x:Name="Employee"
+            DisplayMemberPath="Name"
+            SelectedValuePath="Id"/>
 
         <ComboBox
             Grid.Row="1"
             Grid.Column="1" 
             Margin="30,10,30,10"
-            x:Name="Client"/>
+            x:Name="Client"
+            DisplayMemberPath="Name"
+            SelectedValuePath="Id"/>
 
         <ComboBox
             Grid.Row="2"

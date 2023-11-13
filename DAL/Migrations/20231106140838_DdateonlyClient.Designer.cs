@@ -3,6 +3,7 @@ using System;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DAL.Migrations
 {
     [DbContext(typeof(TourAgencyContext))]
-    partial class TourAgencyContextModelSnapshot : ModelSnapshot
+    [Migration("20231106140838_DdateonlyClient")]
+    partial class DdateonlyClient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,14 +36,18 @@ namespace DAL.Migrations
                     b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
 
-                    b.Property<string>("InternationalPassportNumber")
-                        .HasColumnType("text");
+                    b.Property<int?>("InternationalPassportNumber")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("PassportNumber")
+                    b.Property<int?>("PassportNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TourCount")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -137,10 +144,6 @@ namespace DAL.Migrations
                     b.Property<DateOnly>("DepartureDate")
                         .HasColumnType("date");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int>("DirectionId")
                         .HasColumnType("integer");
 
@@ -196,7 +199,7 @@ namespace DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Transport")
                         .IsRequired()
                         .HasColumnType("text");
 
