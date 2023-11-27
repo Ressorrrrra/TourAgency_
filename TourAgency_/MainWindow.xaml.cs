@@ -27,6 +27,7 @@ using Interfaces.Services;
 using Interfaces.Repository;
 using Ninject;
 using TourAgency_.Util;
+using DomainLevel;
 
 namespace TourAgency_
 {
@@ -67,6 +68,8 @@ namespace TourAgency_
             transportTypeService = kernel.Get<ITransportTypeService>();
             tourOperatorService = kernel.Get<ITourOperatorService>();
             InitializeComponent();
+
+
             //connectionString = ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
             //employeeAdapter = new NpgsqlDataAdapter("SELECT * from employee", connectionString);
             //employeeBuilder =  new NpgsqlCommandBuilder(employeeAdapter);
@@ -97,8 +100,26 @@ namespace TourAgency_
         private void Tour_Loaded(object sender, RoutedEventArgs e)
         {
             var data = tourService.GetAllTours();
-            LoadData(client, data);
+            LoadData(tour, data);
 
+        }
+
+        private void Direction_Loaded(object sender, RoutedEventArgs e)
+        {
+            var data = directionService.GetAllDirections();
+            LoadData(direction, data);
+        }
+
+        private void TransportType_Loaded(object sender, RoutedEventArgs e)
+        {
+            var data = transportTypeService.GetAllTransportTypes();
+            LoadData(transportType, data);
+        }
+
+        private void TourOperator_Loaded(object sender, RoutedEventArgs e)
+        {
+            var data = tourOperatorService.GetAllTourOperators();
+            LoadData(tourOperator, data);
         }
 
         private void LoadData(DataGrid datagrid, object data)
@@ -351,9 +372,9 @@ namespace TourAgency_
                 t.Description = f.Description.Text;
                 t.ArrivalDate = DateOnly.FromDateTime(f.ArrivalDate.SelectedDate.Value);
                 t.DepartureDate = DateOnly.FromDateTime(f.DepartureDate.SelectedDate.Value);
-                t.Direction = directionService.GetDirection((int)f.Direction.SelectedValue);
-                t.TransportType = transportTypeService.GetTransportType((int)f.TransportType.SelectedValue);
-                t.TourOperator = tourOperatorService.GetTourOperator((int)f.TourOperator.SelectedValue);
+                t.DirectionId = (int)f.Direction.SelectedValue;
+                t.TransportTypeId = (int)f.TransportType.SelectedValue;
+                t.TourOperatorId = (int)f.TourOperator.SelectedValue;
                 if (int.TryParse(f.HotelStarsCount.Text, out int value))
                 {
                     t.HotelStarsCount = value;
@@ -367,22 +388,26 @@ namespace TourAgency_
                 MessageBox.Show("Тур добавлен!");
 
 
-                var data = clientService.GetAllClients();
-                LoadData(client, data);
+                var data = tourService.GetAllTours();
+                LoadData(tour, data);
             }
         }
         private void UpdateTourButton_Click(object sender, RoutedEventArgs e)
         {
             if (getSelectedRow(tour) is TourDto row)
             {
+
                 CreateTour f = new CreateTour();
+                f.Direction.ItemsSource = directionService.GetAllDirections().Select(i => new { Id = i.Id, Name = "Страна: " + i.Country + "| Город" + i.City }).ToList();
+                f.TransportType.ItemsSource = transportTypeService.GetAllTransportTypes().Select(i => new { Id = i.Id, Name = i.Name }).ToList();
+                f.TourOperator.ItemsSource = tourOperatorService.GetAllTourOperators().Select(i => new { Id = i.Id, Name = i.Name }).ToList();
                 f.Name.Text = row.Name;
                 f.Description.Text = row.Description;
                 f.ArrivalDate.SelectedDate = row.ArrivalDate.ToDateTime(TimeOnly.Parse("10:00 AM"));
                 f.DepartureDate.SelectedDate = row.DepartureDate.ToDateTime(TimeOnly.Parse("10:00 AM"));
-                f.Direction.SelectedValue = row.Direction.Id;
-                f.TransportType.SelectedValue = row.TransportType.Id;
-                f.TourOperator.SelectedValue = row.TourOperator.Id;
+                f.Direction.SelectedValue = row.DirectionId;
+                f.TransportType.SelectedValue = row.TransportTypeId;
+                f.TourOperator.SelectedValue = row.TourOperatorId;
                 f.Price.Text = row.Price.ToString();
                 f.HotelStarsCount.Text = row.HotelStarsCount.ToString();
 
@@ -390,13 +415,14 @@ namespace TourAgency_
                 if (dialogResult == true)
                 {
                     TourDto t = new TourDto();
+                    t.Id = row.Id;
                     t.Name = f.Name.Text;
                     t.Description = f.Description.Text;
                     t.ArrivalDate = DateOnly.FromDateTime(f.ArrivalDate.SelectedDate.Value);
                     t.DepartureDate = DateOnly.FromDateTime(f.DepartureDate.SelectedDate.Value);
-                    t.Direction = directionService.GetDirection((int)f.Direction.SelectedValue);
-                    t.TransportType = transportTypeService.GetTransportType((int)f.TransportType.SelectedValue);
-                    t.TourOperator = tourOperatorService.GetTourOperator((int)f.TourOperator.SelectedValue);
+                    t.DirectionId = (int)f.Direction.SelectedValue;
+                    t.TransportTypeId = (int)f.TransportType.SelectedValue;
+                    t.TourOperatorId = (int)f.TourOperator.SelectedValue;
                     if (int.TryParse(f.HotelStarsCount.Text, out int value))
                     {
                         t.HotelStarsCount = value;
@@ -431,6 +457,192 @@ namespace TourAgency_
                     MessageBox.Show($"Данные о туре '{name}' удалены.");
                     var data = clientService.GetAllClients();
                     LoadData(client, data);
+                }
+            }
+        }
+
+        private void AddDirectionButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreateDirection f = new CreateDirection();
+            Nullable<bool> dialogResult = f.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                DirectionDto t = new DirectionDto();
+                t.City = f.City.Text;
+                t.Country = f.Country.Text;
+                directionService.CreateDirection(t);
+                MessageBox.Show("направление добавлено!");
+
+
+                var data = directionService.GetAllDirections();
+                LoadData(direction, data);
+            }
+        }
+        private void UpdateDirectionButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (getSelectedRow(direction) is DirectionDto row)
+            {
+
+                CreateDirection f = new CreateDirection();
+                f.City.Text = row.City;
+                f.Country.Text = row.Country;
+
+                Nullable<bool> dialogResult = f.ShowDialog();
+                if (dialogResult == true)
+                {
+                    DirectionDto d = new DirectionDto();
+                    d.Id = row.Id;
+                    d.City = f.City.Text;
+                    d.Country = f.Country.Text;
+
+                    directionService.UpdateDirection(d);
+                    MessageBox.Show("Данные о направлении обновлены!");
+
+
+                    var data = directionService.GetAllDirections();
+                    LoadData(direction, data);
+                }
+            }
+
+        }
+        private void DeleteDirectionButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (getSelectedRow(direction) is DirectionDto row)
+            {
+                string name = row.City + " " + row.Country;
+                if (MessageBox.Show($"Вы уверены, что хотите удалить направление? '{name}'? Это действие вы не сможете отменить.",
+                    "Удаление данных",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+
+                    directionService.DeleteDirection(row.Id);
+                    MessageBox.Show($"Данные о направлении '{name}' удалены.");
+                    var data = directionService.GetAllDirections();
+                    LoadData(direction, data);
+                }
+            }
+        }
+
+        private void AddTransportTypeButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreateTransportType f = new CreateTransportType();
+            Nullable<bool> dialogResult = f.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                TransportTypeDto t = new TransportTypeDto();
+                t.Name = f.Name.Text;
+                transportTypeService.CreateTransportType(t);
+                MessageBox.Show("Вид транспорта добавлен!");
+
+
+                var data = transportTypeService.GetAllTransportTypes();
+                LoadData(transportType, data);
+            }
+        }
+        private void UpdateTransportTypeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (getSelectedRow(transportType) is TransportTypeDto row)
+            {
+
+                CreateTransportType f = new CreateTransportType();
+                f.Name.Text = row.Name;
+
+                Nullable<bool> dialogResult = f.ShowDialog();
+                if (dialogResult == true)
+                {
+                    TransportTypeDto t = new TransportTypeDto();
+                    t.Id = row.Id;
+                    t.Name = f.Name.Text;
+
+                    transportTypeService.UpdateTransportType(t);
+                    MessageBox.Show("Данные о виде транспорта обновлены!");
+
+
+                    var data = transportTypeService.GetAllTransportTypes();
+                    LoadData(transportType, data);
+                }
+            }
+
+        }
+        private void DeleteTransportTypeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (getSelectedRow(transportType) is TransportTypeDto row)
+            {
+                string name = row.Name;
+                if (MessageBox.Show($"Вы уверены, что хотите удалить вид транспорта? '{name}'? Это действие вы не сможете отменить.",
+                    "Удаление данных",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+
+                    transportTypeService.DeleteTransportType(row.Id);
+                    MessageBox.Show($"Данные о виде транспорта '{name}' удалены.");
+                    var data = transportTypeService.GetAllTransportTypes();
+                    LoadData(transportType, data);
+                }
+            }
+        }
+
+        private void AddTourOperatorButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreateTourOperator f = new CreateTourOperator();
+            Nullable<bool> dialogResult = f.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                TourOperatorDto t = new TourOperatorDto();
+                t.Name = f.Name.Text;
+                tourOperatorService.CreateTourOperator(t);
+                MessageBox.Show("Туроператор добавлен!");
+
+
+                var data = tourOperatorService.GetAllTourOperators();
+                LoadData(tourOperator, data);
+            }
+        }
+        private void UpdateTourOperatorButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (getSelectedRow(tourOperator) is TourOperatorDto row)
+            {
+
+                CreateTourOperator f = new CreateTourOperator();
+                f.Name.Text = row.Name;
+
+                Nullable<bool> dialogResult = f.ShowDialog();
+                if (dialogResult == true)
+                {
+                    TourOperatorDto t = new TourOperatorDto();
+                    t.Id = row.Id;
+                    t.Name = f.Name.Text;
+
+                    tourOperatorService.UpdateTourOperator(t);
+                    MessageBox.Show("Данные о туроператоре обновлены!");
+
+
+                    var data = tourOperatorService.GetAllTourOperators();
+                    LoadData(tourOperator, data);
+                }
+            }
+
+        }
+        private void DeleteTourOperatorButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (getSelectedRow(tourOperator) is TourOperatorDto row)
+            {
+                string name = row.Name;
+                if (MessageBox.Show($"Вы уверены, что хотите удалить туроператора? '{name}'? Это действие вы не сможете отменить.",
+                    "Удаление данных",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+
+                    tourOperatorService.DeleteTourOperator(row.Id);
+                    MessageBox.Show($"Данные о туроператоре '{name}' удалены.");
+                    var data = tourOperatorService.GetAllTourOperators();
+                    LoadData(tourOperator, data);
                 }
             }
         }

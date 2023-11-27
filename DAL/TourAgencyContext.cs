@@ -17,6 +17,9 @@ namespace DAL
         public virtual DbSet<Direction> Directions { get; set; }
         public virtual DbSet<TransportType> TransportTypes { get; set; }
         public virtual DbSet<TourOperator> TourOperators { get; set; }
+        public virtual DbSet<Request> Requests { get; set; }
+        public virtual DbSet<RequestStatus> RequestStatuses { get; set; }
+
 
         public TourAgencyContext() : base()
         {

@@ -24,10 +24,14 @@ namespace BLL.Services
                 DepartureDate = t.DepartureDate,
                 HotelStarsCount = t.HotelStarsCount,
                 Price = t.Price,
-                Direction = new Direction() { City = t.Direction.City, Country = t.Direction.Country },
-                TransportType = new TransportType() { Name = t.TransportType.Name },
-                TourOperator = new TourOperator() { Name = t.TourOperator.Name }
+                DirectionId = t.DirectionId,
+                Direction = db.Directions.GetItem(t.DirectionId),
+                TransportTypeId = t.TransportTypeId,
+                TransportType = db.TransportTypes.GetItem(t.TransportTypeId),
+                TourOperatorId = t.TourOperatorId,
+                TourOperator = db.TourOperators.GetItem(t.TourOperatorId),
             });
+            db.Save();
         }
 
         public void DeleteTour(int id)
@@ -53,15 +57,18 @@ namespace BLL.Services
         public void UpdateTour(TourDto tour)
         {
             Tour t = db.Tours.GetItem(tour.Id);
-            t.Name = t.Name;
-            t.Description = t.Description;
-            t.ArrivalDate = t.ArrivalDate;
-            t.DepartureDate = t.DepartureDate;
-            t.HotelStarsCount = t.HotelStarsCount;
-            t.Price = t.Price;
-            t.Direction = new Direction() { City = t.Direction.City, Country = t.Direction.Country };
-            t.TransportType = new TransportType() { Name = t.TransportType.Name };
-            t.TourOperator = new TourOperator() { Name = t.TourOperator.Name };
+            t.Name = tour.Name;
+            t.Description = tour.Description;
+            t.ArrivalDate = tour.ArrivalDate;
+            t.DepartureDate = tour.DepartureDate;
+            t.HotelStarsCount = tour.HotelStarsCount;
+            t.Price = tour.Price;
+            t.DirectionId = tour.DirectionId;
+            t.Direction = db.Directions.GetItem(tour.DirectionId);
+            t.TransportTypeId = tour.TransportTypeId;
+            t.TransportType = db.TransportTypes.GetItem(tour.TransportTypeId);
+            t.TourOperatorId = tour.TourOperatorId;
+            t.TourOperator = db.TourOperators.GetItem(tour.TourOperatorId);
             db.Tours.Update(t);
             Save(db);
         }

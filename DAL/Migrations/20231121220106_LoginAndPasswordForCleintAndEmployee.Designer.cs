@@ -3,6 +3,7 @@ using System;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DAL.Migrations
 {
     [DbContext(typeof(TourAgencyContext))]
-    partial class TourAgencyContextModelSnapshot : ModelSnapshot
+    [Migration("20231121220106_LoginAndPasswordForCleintAndEmployee")]
+    partial class LoginAndPasswordForCleintAndEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,49 +142,6 @@ namespace DAL.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("DomainLevel.Request", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ContractId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Reply")
-                        .HasColumnType("text");
-
-                    b.Property<int>("StatusId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ContractId");
-
-                    b.HasIndex("StatusId");
-
-                    b.ToTable("Requests");
-                });
-
-            modelBuilder.Entity("DomainLevel.RequestStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RequestStatuses");
-                });
-
             modelBuilder.Entity("DomainLevel.Tour", b =>
                 {
                     b.Property<int>("Id")
@@ -289,25 +249,6 @@ namespace DAL.Migrations
                     b.Navigation("Employee");
 
                     b.Navigation("Tour");
-                });
-
-            modelBuilder.Entity("DomainLevel.Request", b =>
-                {
-                    b.HasOne("DomainLevel.Contract", "Contract")
-                        .WithMany()
-                        .HasForeignKey("ContractId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DomainLevel.RequestStatus", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Contract");
-
-                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("DomainLevel.Tour", b =>

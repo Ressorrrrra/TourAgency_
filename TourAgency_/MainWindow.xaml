@@ -35,13 +35,13 @@
                                 <RowDefinition Height="50"></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Button 
+                            <!--<Button 
                             Margin="10,10,10,10"
                             Grid.Column="0"
                             Width="auto" 
                             Height="auto" Click="SaveContractDataButton_Click">
                                 <TextBlock Text="Cохранить изменения"/>
-                            </Button>
+                            </Button>-->
                             <Button 
                             Margin="10,10,10,10"
                             Grid.Column="1"
@@ -215,28 +215,28 @@
                 Margin="10,10,10,10"
                 Grid.Column="0"
                 Width="auto" 
-                Height="auto" Click="SaveClientDataButton_Click">
+                Height="auto" Click="SaveTourDataButton_Click">
                                 <TextBlock Text="Cохранить изменения"/>
                             </Button>
                             <Button 
                 Margin="10,10,10,10"
                 Grid.Column="1"
                 Width="auto" 
-                Height="auto" Click="AddClientButton_Click">
+                Height="auto" Click="AddTourButton_Click">
                                 <TextBlock Text="Добавить тур"/>
                             </Button>
                             <Button 
                 Margin="10,10,10,10"
                 Grid.Column="2"
                 Width="auto" 
-                Height="auto" Click="UpdateClientButton_Click">
+                Height="auto" Click="UpdateTourButton_Click">
                                 <TextBlock Text="Изменить данные"/>
                             </Button>
                             <Button 
                 Margin="10,10,10,10"
                 Grid.Column="3"
                 Width="auto" 
-                Height="auto" Click="DeleteClientButton_Click">
+                Height="auto" Click="DeleteTourButton_Click">
                                 <TextBlock Text="Удалить данные тура"/>
                             </Button>
                             <DataGrid
@@ -248,6 +248,158 @@
                   IsReadOnly="True"/>
 
 
+                        </Grid>
+                    </TabItem.Content>
+                </TabItem>
+
+                <TabItem Name ="Direction">
+                    <TabItem.Header>
+                        <TextBlock Text="Направления"/>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Button 
+                            Margin="10,10,10,10"
+                            Grid.Column="1"
+                            Width="auto" 
+                            Height="auto" Click="AddDirectionButton_Click">
+                                <TextBlock Text="Добавить направление"/>
+                            </Button>
+                            <Button 
+                            Margin="10,10,10,10"
+                            Grid.Column="2"
+                            Width="auto" 
+                            Height="auto" Click="UpdateDirectionButton_Click">
+                                <TextBlock Text="Изменить данные"/>
+                            </Button>
+                            <Button 
+                            Margin="10,10,10,10"
+                            Grid.Column="3"
+                            Width="auto" 
+                            Height="auto" Click="DeleteDirectionButton_Click">
+                                <TextBlock Text="Удалить данные направления"/>
+                            </Button>
+                            <DataGrid
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="4"
+                              Name="direction"
+                              Loaded="Direction_Loaded" 
+                              IsReadOnly="True"/>
+
+
+                        </Grid>
+                    </TabItem.Content>
+                </TabItem>
+
+                <TabItem Name ="TransportType">
+                    <TabItem.Header>
+                        <TextBlock Text="Виды транспорта"/>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Button 
+                                Margin="10,10,10,10"
+                                Grid.Column="1"
+                                Width="auto" 
+                                Height="auto" Click="AddTransportTypeButton_Click">         
+                                <TextBlock Text="Добавить вид транспорта"/>
+                            </Button>
+                            <Button 
+                                Margin="10,10,10,10"
+                                Grid.Column="2"
+                                Width="auto" 
+                                Height="auto" Click="UpdateTransportTypeButton_Click">
+                                <TextBlock Text="Изменить данные"/>
+                            </Button>
+                            <Button 
+                                    Margin="10,10,10,10"
+                                    Grid.Column="3"
+                                    Width="auto" 
+                                    Height="auto" Click="DeleteTransportTypeButton_Click">
+                                <TextBlock Text="Удалить вид транспорта"/>
+                            </Button>
+                            <DataGrid
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="4"
+                                  Name="transportType"
+                                  Loaded="TransportType_Loaded" 
+                                  IsReadOnly="True"/>
+                        </Grid>
+                    </TabItem.Content>
+                </TabItem>
+
+                <TabItem Name ="TourOperator">
+                    <TabItem.Header>
+                        <TextBlock Text="Туроператоры"/>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Button 
+                            Margin="10,10,10,10"
+                            Grid.Column="1"
+                            Width="auto" 
+                            Height="auto" Click="AddTourOperatorButton_Click">
+                                <TextBlock Text="Добавить туроператора"/>
+                            </Button>
+                            <Button 
+                                Margin="10,10,10,10"
+                                Grid.Column="2"
+                                Width="auto" 
+                                Height="auto" Click="UpdateTourOperatorButton_Click">
+                                <TextBlock Text="Изменить данные"/>
+                            </Button>
+                            <Button 
+                                Margin="10,10,10,10"
+                                Grid.Column="3"
+                                Width="auto" 
+                                Height="auto" Click="DeleteTourOperatorButton_Click">  
+                                <TextBlock Text="Удалить туроператора"/>
+                            </Button>
+                            <DataGrid
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="4"
+                              Name="tourOperator"
+                              Loaded="TourOperator_Loaded" 
+                              IsReadOnly="True"/>
                         </Grid>
                     </TabItem.Content>
                 </TabItem>

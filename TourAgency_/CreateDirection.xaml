@@ -1,11 +1,11 @@
-﻿<Window x:Class="TourAgency_.CreateTourOperator"
+﻿<Window x:Class="TourAgency_.CreateDirection"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourAgency_"
         mc:Ignorable="d"
-        Title="CreateTourOperator" Height="350" Width="700">
+        Title="CreateDirection" Height="450" Width="800">
     <Grid Margin="20,50,20,50">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -14,28 +14,42 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock
     Grid.Column="0"
     Grid.Row="0"
-    Text="Наименование Туроператора:"
+    Text="Город:"
+    TextAlignment="Right"
+    FontSize="20"
+    VerticalAlignment="Center"/>
+        <TextBlock
+    Grid.Column="0"
+    Grid.Row="1"
+    Text="Страна:"
     TextAlignment="Right"
     FontSize="20"
     VerticalAlignment="Center"/>
 
 
         <TextBox 
-    x:Name="Name"
+    x:Name="City"
     Grid.Row="0"
     Grid.Column="1" 
-    Margin="30"/>
+    Margin="30,40,30,40"/>
+        <TextBox 
+    x:Name="Country"
+    Grid.Row="1"
+    Grid.Column="1" 
+    Margin="30,40,30,40"
+    TextAlignment="Center"/>
         <Button 
     x:Name="AddButton"
     Grid.Column="0"
-    Grid.Row="1"
+    Grid.Row="5"
     
     Grid.ColumnSpan="2"
-    Margin="150, 20, 150, 20" Click="AddButton_Click">
+    Margin="250, 20, 250, 20" Click="AddButton_Click">
             <TextBlock 
             Text="ОК"
             FontSize="30"/>
