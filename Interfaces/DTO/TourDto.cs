@@ -13,8 +13,12 @@ namespace Interfaces.DTO
         public string Name { get; set; }
         public string Description { get; set; }
         public int DirectionId {  get; set; }
+        //public string City { get; set; }
+        //public string Country { get; set; }
         public int TransportTypeId {  get; set; }
+        //public string TransportTypeName { get; set; }
         public int TourOperatorId {  get; set; }
+        //public string TourOperatorName { get; set; }
         public int Price { get; set; }
         public int HotelStarsCount { get; set; }
         public DateOnly ArrivalDate { get; set; }
@@ -30,8 +34,12 @@ namespace Interfaces.DTO
             Name = t.Name;
             Description = t.Description;
             DirectionId = t.DirectionId;
+            //City = t.Direction.City;
+            //Country = t.Direction.Country;
             TransportTypeId = t.TransportTypeId;
+            //TransportTypeName = t.TransportType.Name;
             TourOperatorId = t.TourOperatorId;
+            //TourOperatorName = t.TourOperator.Name;
             Price = t.Price;
             HotelStarsCount = t.HotelStarsCount;
             ArrivalDate = t.ArrivalDate;

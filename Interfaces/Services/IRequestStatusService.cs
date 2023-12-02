@@ -10,7 +10,7 @@ namespace Interfaces.Services
     public interface IRequestStatusService
     {
         List<RequestStatusDto> GetAllRequestStatuses();
-        TourOperatorDto GetRequestStatus(int id);
+        RequestStatusDto GetRequestStatus(int id);
 
         void CreateRequestStatus(RequestStatusDto status);
 

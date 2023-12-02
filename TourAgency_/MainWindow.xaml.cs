@@ -69,6 +69,8 @@ namespace TourAgency_
             tourOperatorService = kernel.Get<ITourOperatorService>();
             InitializeComponent();
 
+            LoginWindow l = new LoginWindow();
+            l.Show();
 
             //connectionString = ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
             //employeeAdapter = new NpgsqlDataAdapter("SELECT * from employee", connectionString);
@@ -99,7 +101,20 @@ namespace TourAgency_
 
         private void Tour_Loaded(object sender, RoutedEventArgs e)
         {
-            var data = tourService.GetAllTours();
+            var data = tourService.GetAllTours().Select(i => new
+            {
+                Id = i.Id,
+                Name = i.Name,
+                Description = i.Description,
+                City = directionService.GetDirection(i.DirectionId).City,
+                Country = directionService.GetDirection(i.DirectionId).Country,
+                Transporttype = transportTypeService.GetTransportType(i.TransportTypeId).Name,
+                Touroperator = tourOperatorService.GetTourOperator(i.TourOperatorId).Name,
+                ArrivalDate = i.ArrivalDate,
+                DepartuteDate = i.DepartureDate,
+                HotelStarsCount = i.HotelStarsCount,
+                Price = i.Price,
+            });
             LoadData(tour, data);
 
         }
@@ -164,7 +179,7 @@ namespace TourAgency_
         }
         private void UpdateContractButton_Click(object sender, RoutedEventArgs e)
         {
-            if (getSelectedRow(contract) is ContractDto row)
+            if (contractService.GetContract(getSelectedRow(contract)) is ContractDto row)
             {
                 CreateContract f = new CreateContract();
                 f.Employee.SelectedItem = employeeService.GetEmployee(row.EmployeeId);
@@ -191,7 +206,7 @@ namespace TourAgency_
         }
         private void DeleteContractButton_Click(object sender, RoutedEventArgs e)
         {
-            if (getSelectedRow(contract) is ContractDto row)
+            if (contractService.GetContract(getSelectedRow(contract)) is ContractDto row)
             {
                 if (MessageBox.Show($"Вы уверены, что хотите удалить контракт '{row.Id}'? Это действие вы не сможете отменить.",
                     "Удаление данных",
@@ -236,7 +251,7 @@ namespace TourAgency_
         }
         private void UpdateEmployeeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (getSelectedRow(employee) is EmployeeDto row)
+            if (employeeService.GetEmployee(getSelectedRow(employee)) is EmployeeDto row)
             {
                 CreateEmployee f = new CreateEmployee();
                 f.Name.Text = row.Name;
@@ -263,7 +278,7 @@ namespace TourAgency_
         }
         private void DeleteEmployeeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (getSelectedRow(employee) is EmployeeDto row)
+            if (employeeService.GetEmployee(getSelectedRow(employee)) is EmployeeDto row)
             {
                 if (MessageBox.Show($"Вы уверены, что хотите удалить данные сотрудника '{row.Name}'? Это действие вы не сможете отменить.",
                     "Удаление данных",
@@ -306,7 +321,7 @@ namespace TourAgency_
         }
         private void UpdateClientButton_Click(object sender, RoutedEventArgs e)
         {
-            if (getSelectedRow(client) is ClientDto row)
+            if (clientService.GetClient(getSelectedRow(client)) is ClientDto row)
             {
                 CreateClient f = new CreateClient();
                 f.Name.Text = row.Name;
@@ -336,7 +351,7 @@ namespace TourAgency_
         }
         private void DeleteClientButton_Click(object sender, RoutedEventArgs e)
         {
-            if (getSelectedRow(client) is ClientDto row)
+            if (clientService.GetClient(getSelectedRow(client)) is ClientDto row)
             {
                 if (MessageBox.Show($"Вы уверены, что хотите удалить данные клиента '{row.Name}'? Это действие вы не сможете отменить.",
                     "Удаление данных",
@@ -394,7 +409,7 @@ namespace TourAgency_
         }
         private void UpdateTourButton_Click(object sender, RoutedEventArgs e)
         {
-            if (getSelectedRow(tour) is TourDto row)
+            if (tourService.GetTour(getSelectedRow(tour)) is TourDto row)
             {
 
                 CreateTour f = new CreateTour();
@@ -445,7 +460,7 @@ namespace TourAgency_
         }
         private void DeleteTourButton_Click(object sender, RoutedEventArgs e)
         {
-            if (getSelectedRow(tour) is TourDto row)
+            if (tourService.GetTour(getSelectedRow(tour)) is TourDto row)
             {
                 if (MessageBox.Show($"Вы уверены, что хотите удалить данные о туре '{row.Name}'? Это действие вы не сможете отменить.",
                     "Удаление данных",
@@ -481,7 +496,7 @@ namespace TourAgency_
         }
         private void UpdateDirectionButton_Click(object sender, RoutedEventArgs e)
         {
-            if (getSelectedRow(direction) is DirectionDto row)
+            if (directionService.GetDirection(getSelectedRow(direction)) is DirectionDto row)
             {
 
                 CreateDirection f = new CreateDirection();
@@ -508,7 +523,7 @@ namespace TourAgency_
         }
         private void DeleteDirectionButton_Click(object sender, RoutedEventArgs e)
         {
-            if (getSelectedRow(direction) is DirectionDto row)
+            if (directionService.GetDirection(getSelectedRow(direction)) is DirectionDto row)
             {
                 string name = row.City + " " + row.Country;
                 if (MessageBox.Show($"Вы уверены, что хотите удалить направление? '{name}'? Это действие вы не сможете отменить.",
@@ -544,7 +559,7 @@ namespace TourAgency_
         }
         private void UpdateTransportTypeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (getSelectedRow(transportType) is TransportTypeDto row)
+            if (transportTypeService.GetTransportType(getSelectedRow(transportType)) is TransportTypeDto row)
             {
 
                 CreateTransportType f = new CreateTransportType();
@@ -569,7 +584,7 @@ namespace TourAgency_
         }
         private void DeleteTransportTypeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (getSelectedRow(transportType) is TransportTypeDto row)
+            if (transportTypeService.GetTransportType(getSelectedRow(transportType)) is TransportTypeDto row)
             {
                 string name = row.Name;
                 if (MessageBox.Show($"Вы уверены, что хотите удалить вид транспорта? '{name}'? Это действие вы не сможете отменить.",
@@ -605,7 +620,7 @@ namespace TourAgency_
         }
         private void UpdateTourOperatorButton_Click(object sender, RoutedEventArgs e)
         {
-            if (getSelectedRow(tourOperator) is TourOperatorDto row)
+            if (tourOperatorService.GetTourOperator(getSelectedRow(tourOperator)) is TourOperatorDto row)
             {
 
                 CreateTourOperator f = new CreateTourOperator();
@@ -630,7 +645,7 @@ namespace TourAgency_
         }
         private void DeleteTourOperatorButton_Click(object sender, RoutedEventArgs e)
         {
-            if (getSelectedRow(tourOperator) is TourOperatorDto row)
+            if (tourOperatorService.GetTourOperator(getSelectedRow(tourOperator)) is TourOperatorDto row)
             {
                 string name = row.Name;
                 if (MessageBox.Show($"Вы уверены, что хотите удалить туроператора? '{name}'? Это действие вы не сможете отменить.",
@@ -647,12 +662,13 @@ namespace TourAgency_
             }
         }
 
-        private object getSelectedRow(DataGrid dataGrid)
+        private int getSelectedRow(DataGrid dataGrid)
         {
             int index = -1;
             if (dataGrid.SelectedItem != null)
             {
-                return dataGrid.SelectedItem;
+                int.TryParse(dataGrid.SelectedValuePath, out int result);
+                return result;
             }
             return index;
         }

@@ -12,9 +12,8 @@
             <Grid.ColumnDefinitions>
 
             </Grid.ColumnDefinitions>
-            <!--<DataGrid Name="contract"
-      Loaded="Contract_Loaded" 
-      IsReadOnly="True"/>-->
+
+
             <TabControl TabStripPlacement="Left">
 
                 <TabItem Name ="Contract">
@@ -22,8 +21,9 @@
                         <TextBlock Text="Контракты"/>
                     </TabItem.Header>
                     <TabItem.Content>
-                        
+
                         <Grid>
+
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
@@ -70,13 +70,13 @@
                               Name="contract"
                               Loaded="Contract_Loaded" 
                               IsReadOnly="True">
-                                
+
                             </DataGrid>
 
 
                         </Grid>
                     </TabItem.Content>
-                    
+
                 </TabItem>
                 <TabItem Name ="Employee">
                     <TabItem.Header>
@@ -326,7 +326,7 @@
                                 Margin="10,10,10,10"
                                 Grid.Column="1"
                                 Width="auto" 
-                                Height="auto" Click="AddTransportTypeButton_Click">         
+                                Height="auto" Click="AddTransportTypeButton_Click">
                                 <TextBlock Text="Добавить вид транспорта"/>
                             </Button>
                             <Button 
@@ -390,7 +390,7 @@
                                 Margin="10,10,10,10"
                                 Grid.Column="3"
                                 Width="auto" 
-                                Height="auto" Click="DeleteTourOperatorButton_Click">  
+                                Height="auto" Click="DeleteTourOperatorButton_Click">
                                 <TextBlock Text="Удалить туроператора"/>
                             </Button>
                             <DataGrid

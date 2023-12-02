@@ -27,7 +27,8 @@ namespace BLL.Services
         }
         public void CreateClient(ClientDto client)
         {
-            db.Clients.Create(new Client() { Name = client.Name, DateOfBirth = client.DateOfBirth, PassportNumber = client.PassportNumber, InternationalPassportNumber = client.InternationalPassportNumber});
+            db.Clients.Create(new Client() { Name = client.Name, Login = client.Login, Password = client.Password,
+                DateOfBirth = client.DateOfBirth, PassportNumber = client.PassportNumber, InternationalPassportNumber = client.InternationalPassportNumber});
             Save(db);
         }
 

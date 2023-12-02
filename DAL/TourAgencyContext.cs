@@ -19,6 +19,8 @@ namespace DAL
         public virtual DbSet<TourOperator> TourOperators { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<RequestStatus> RequestStatuses { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserData> UsersData { get; set; } 
 
 
         public TourAgencyContext() : base()

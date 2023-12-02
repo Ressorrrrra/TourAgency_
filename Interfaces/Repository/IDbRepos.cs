@@ -20,6 +20,8 @@ namespace Interfaces.Repository
         IRepository<TransportType> TransportTypes { get; }
 
         IRepository<TourOperator> TourOperators { get; }
+
+        IRepository<RequestStatus> RequestStatuses { get; }
         IReportsRepository Reports {  get; }
         int Save();
     }

@@ -1,4 +1,5 @@
 ﻿using DomainLevel;
+using Interfaces.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository
 {
-    public class RequestStatusRepository
+    public class RequestStatusRepository : IRepository<RequestStatus>   
     {
         private TourAgencyContext db;
 
@@ -17,7 +18,7 @@ namespace DAL.Repository
         }
         public void Create(RequestStatus item)
         {
-            db.RequestStatuss.Add(item);
+            db.RequestStatuses.Add(item);
         }
 
         public void Delete(int id)
@@ -25,23 +26,23 @@ namespace DAL.Repository
             RequestStatus RequestStatus = GetItem(id);
             if (RequestStatus != null)
             {
-                db.RequestStatuss.Remove(RequestStatus);
+                db.RequestStatuses.Remove(RequestStatus);
             }
         }
 
         public RequestStatus GetItem(int id)
         {
-            return db.RequestStatuss.Find(id);
+            return db.RequestStatuses.Find(id);
         }
 
         public List<RequestStatus> GetList()
         {
-            return db.RequestStatuss.ToList();
+            return db.RequestStatuses.ToList();
         }
 
         public void Update(RequestStatus item)
         {
-            db.RequestStatuss.Update(item);
+            db.RequestStatuses.Update(item);
         }
     }
 }

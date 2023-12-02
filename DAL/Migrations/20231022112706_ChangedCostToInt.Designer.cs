@@ -190,7 +190,7 @@ namespace DAL.Migrations
                     b.ToTable("TourOperators");
                 });
 
-            modelBuilder.Entity("DAL.Models.TransportType", b =>
+            modelBuilder.Entity("DAL.Models.TransportTypeName", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -248,7 +248,7 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAL.Models.TransportType", "TransportType")
+                    b.HasOne("DAL.Models.TransportTypeName", "TransportTypeName")
                         .WithMany()
                         .HasForeignKey("TransportTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -258,7 +258,7 @@ namespace DAL.Migrations
 
                     b.Navigation("TourOperator");
 
-                    b.Navigation("TransportType");
+                    b.Navigation("TransportTypeName");
                 });
 #pragma warning restore 612, 618
         }

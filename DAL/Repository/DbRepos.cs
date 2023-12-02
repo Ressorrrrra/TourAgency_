@@ -18,6 +18,7 @@ namespace DAL.Repository
         private DirectionRepository directionRepository;
         private TransportTypeRepository transportTypeRepository;
         private TourOperatorRepository tourOperatorRepository;
+        private RequestStatusRepository requestStatusRepository;
         public DbRepos()
         {
             db = new TourAgencyContext();
@@ -90,6 +91,16 @@ namespace DAL.Repository
                 if (clientRepository == null)
                     clientRepository = new ClientRepository(db);
                 return clientRepository;
+            }
+        }
+
+        public IRepository<RequestStatus> RequestStatuses
+        {
+            get
+            {
+                if (requestStatusRepository == null)
+                    requestStatusRepository = new RequestStatusRepository(db);
+                return requestStatusRepository;
             }
         }
 

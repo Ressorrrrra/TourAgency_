@@ -11,9 +11,9 @@ namespace DomainLevel
         public int Id {  get; set; }
         public Contract Contract { get; set; }
         public int ClientId { get; set; }
-        public Client Client { get; set; }
+        public User Client { get; set; }
         public int? EmployeeId { get; set; }
-        public Employee? Employee { get; set; }
+        public User? Employee { get; set; }
         public int TourId { get; set; }
         public Tour Tour { get; set; }
         public string? Reply {  get; set; }
