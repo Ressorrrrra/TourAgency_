@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Repository;
 
 namespace TourAgency_.Util
 {
@@ -20,7 +21,9 @@ namespace TourAgency_.Util
             Bind<IDirectionService>().To<DirectionService>();
             Bind<ITransportTypeService>().To<TransportTypeService>();
             Bind<ITourOperatorService>().To<TourOperatorService>();
-
+            Bind<IUserService>().To<UserService>();
+            Bind<IRequestService>().To<RequestService>();
+            Bind<ILoggingService>().To<UserRepository>();
         }
     }
 }

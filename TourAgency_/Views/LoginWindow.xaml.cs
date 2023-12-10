@@ -1,5 +1,4 @@
-﻿using Interfaces.DTO;
-using Interfaces.Services;
+﻿using Interfaces.Services;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -16,47 +15,38 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TourAgency_.Util;
 
-namespace TourAgency_
+namespace TourAgency_.Views
 {
     /// <summary>
     /// Логика взаимодействия для LoginWindow.xaml
     /// </summary>
     public partial class LoginWindow : Window
     {
-        IEmployeeService employeeService;
-        IClientService clientService;
+        IUserService userService;
 
         public LoginWindow()
-        {
+        { 
             var kernel = new StandardKernel(new NinjectRegistrations(), new ReposModule("DbConnection"));
 
-            employeeService = kernel.Get<IEmployeeService>();
-            clientService = kernel.Get<IClientService>();
+            userService = kernel.Get<IUserService>();
 
             InitializeComponent();
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var list1 = clientService.GetAllClients().Where(g => g.Login.Equals(Login.Text) && g.Password.Equals(Password)).ToList();
-            if (list1.Any())
+            var user = userService.GetUser(Login.Text, Password.Text);
+            if (user != null)
             {
-
+                MainWindow f = new MainWindow(user);
+                f.Show();
+                this.Close();
             }
             else
             {
-                var list2 = employeeService.GetAllEmployees().Where(g => g.Login.Equals(Login.Text) && g.Password.Equals(Password)).ToList();
-                if(list2.Any())
-                {
-
-                }
-                else
-                {
-                    MessageBox.Show("Пользователь с данным логином и паролем не был найден");
-                }
+                MessageBox.Show("Пользователь с данным логином и паролем не был найден");
             }
-            
+
         }
 
         private void Registration_Click(object sender, RoutedEventArgs e)

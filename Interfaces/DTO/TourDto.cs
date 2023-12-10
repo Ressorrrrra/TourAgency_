@@ -10,6 +10,7 @@ namespace Interfaces.DTO
     public class TourDto
     {
         public int Id { get; set; }
+        public string? ImageLink {  get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int DirectionId {  get; set; }
@@ -34,6 +35,7 @@ namespace Interfaces.DTO
             Name = t.Name;
             Description = t.Description;
             DirectionId = t.DirectionId;
+            ImageLink = t.ImageLink;
             //City = t.Direction.City;
             //Country = t.Direction.Country;
             TransportTypeId = t.TransportTypeId;

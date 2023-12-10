@@ -1,5 +1,6 @@
 ﻿using Interfaces.DTO;
 using Interfaces.Services;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,24 +14,21 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Ninject;
 using TourAgency_.Util;
 
-namespace TourAgency_
+namespace TourAgency_.Views
 {
     /// <summary>
     /// Логика взаимодействия для RegistrationWindow.xaml
     /// </summary>
     public partial class RegistrationWindow : Window
     {
-        IEmployeeService employeeService;
-        IClientService clientService;
+        IUserService userService;
         public RegistrationWindow()
         {
             var kernel = new StandardKernel(new NinjectRegistrations(), new ReposModule("DbConnection"));
 
-            employeeService = kernel.Get<IEmployeeService>();
-            clientService = kernel.Get<IClientService>();
+            userService = kernel.Get<IUserService>();
 
             InitializeComponent();
         }
@@ -39,19 +37,20 @@ namespace TourAgency_
         {
             if (CheckPassword() && CheckLogin())
             {
-                ClientDto cl = new ClientDto();
-                cl.Name = Name.Text;
-                cl.Login = Login.Text;
-                cl.Password = Password.Text;
-                cl.DateOfBirth = DateOnly.FromDateTime(Date.SelectedDate.Value);
-                cl.PassportNumber = Passport.Text;
-                cl.InternationalPassportNumber = InternationalPassport.Text;
-                clientService.CreateClient(cl);
+                UserDto u = new UserDto();
+                u.Name = Name.Text;
+                u.Login = Login.Text;
+                u.Password = Password.Text;
+                u.UserType = DomainLevel.UserType.Client;
+                u.DateOfBirth = DateOnly.FromDateTime(Date.SelectedDate.Value);
+                u.PassportNumber = Passport.Text;
+                u.InternationalPassportNumber = InternationalPassport.Text;
+                userService.CreateUser(u);
                 MessageBox.Show("Учетная запись создана!");
                 this.Close();
             }
 
-            
+
         }
 
         private bool CheckLogin()
@@ -61,14 +60,8 @@ namespace TourAgency_
                 MessageBox.Show("Логин не был введён.");
                 return false;
             }
-            var list1 = clientService.GetAllClients().Where(g => g.Login.Equals(Login) && g.Password.Equals(Password)).ToList();
-            if (list1.Any())
-            {
-                MessageBox.Show("Пользователь с данным логином уже существует!");
-                return false;
-            }
-            var list2 = employeeService.GetAllEmployees().Where(g => g.Login.Equals(Login) && g.Password.Equals(Password)).ToList();
-            if (list2.Any())
+            var list = userService.GetAllUsers().Where(g => g.Login.Equals(Login) && g.Password.Equals(Password)).ToList();
+            if (list.Any())
             {
                 MessageBox.Show("Пользователь с данным логином уже существует!");
                 return false;

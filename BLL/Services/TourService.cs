@@ -19,6 +19,7 @@ namespace BLL.Services
             db.Tours.Create(new Tour()
             {
                 Name = t.Name,
+                ImageLink = t.ImageLink,
                 Description = t.Description,
                 ArrivalDate = t.ArrivalDate,
                 DepartureDate = t.DepartureDate,
@@ -58,6 +59,7 @@ namespace BLL.Services
         {
             Tour t = db.Tours.GetItem(tour.Id);
             t.Name = tour.Name;
+            t.ImageLink = tour.ImageLink;
             t.Description = tour.Description;
             t.ArrivalDate = tour.ArrivalDate;
             t.DepartureDate = tour.DepartureDate;

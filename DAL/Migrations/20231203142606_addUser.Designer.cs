@@ -3,6 +3,7 @@ using System;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DAL.Migrations
 {
     [DbContext(typeof(TourAgencyContext))]
-    partial class TourAgencyContextModelSnapshot : ModelSnapshot
+    [Migration("20231203142606_addUser")]
+    partial class addUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,6 +156,9 @@ namespace DAL.Migrations
                     b.Property<DateTime?>("ConclusionDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("ContractId")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("EmployeeId")
                         .HasColumnType("integer");
 
@@ -171,6 +177,8 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("ContractId");
 
                     b.HasIndex("EmployeeId");
 
@@ -351,11 +359,17 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DomainLevel.Contract", "Contract")
+                        .WithMany()
+                        .HasForeignKey("ContractId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DomainLevel.User", "Employee")
                         .WithMany()
                         .HasForeignKey("EmployeeId");
 
-                    b.HasOne("DomainLevel.RequestStatus", "RequestStatus")
+                    b.HasOne("DomainLevel.RequestStatus", "Status")
                         .WithMany()
                         .HasForeignKey("RequestStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -369,9 +383,11 @@ namespace DAL.Migrations
 
                     b.Navigation("Client");
 
+                    b.Navigation("Contract");
+
                     b.Navigation("Employee");
 
-                    b.Navigation("RequestStatus");
+                    b.Navigation("Status");
 
                     b.Navigation("Tour");
                 });

@@ -1,5 +1,11 @@
-﻿using System;
+﻿using DomainLevel;
+using Interfaces.DTO;
+using Interfaces.Services;
+using Ninject;
+using Npgsql;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,30 +15,14 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using Npgsql;
-using System.Configuration;
-using System.Data;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.EntityFrameworkCore;
-using System.Globalization;
-using NpgsqlTypes;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using BLL.Services;
-using System.Diagnostics.Contracts;
-using Interfaces.DTO;
-using System.Xml.Linq;
-using Interfaces.Services;
-using Interfaces.Repository;
-using Ninject;
 using TourAgency_.Util;
-using DomainLevel;
 
-namespace TourAgency_
+namespace TourAgency_.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -48,16 +38,19 @@ namespace TourAgency_
         ITransportTypeService transportTypeService;
         ITourOperatorService tourOperatorService;
 
+        private UserDto userData;
 
         //DataTable dataTable1 = new DataTable("employee");
 
-        private NpgsqlDataAdapter employeeAdapter;
-        NpgsqlCommandBuilder employeeBuilder;
+        //private NpgsqlDataAdapter employeeAdapter;
+        //NpgsqlCommandBuilder employeeBuilder;
 
-        private DataSet dataSet = new DataSet();
+        //private DataSet dataSet = new DataSet();
 
-        public MainWindow()
+        public MainWindow(UserDto userData)
         {
+
+            this.userData = userData;
             var kernel = new StandardKernel(new NinjectRegistrations(), new ReposModule("DbConnection"));
 
             contractService = kernel.Get<IContractService>();
@@ -67,16 +60,30 @@ namespace TourAgency_
             directionService = kernel.Get<IDirectionService>();
             transportTypeService = kernel.Get<ITransportTypeService>();
             tourOperatorService = kernel.Get<ITourOperatorService>();
+
             InitializeComponent();
 
-            LoginWindow l = new LoginWindow();
-            l.Show();
-
+            Username.Text = userData.Login + $" ({userData.UserType})";
+            switch (userData.UserType)
+            {
+                case UserType.Client:
+                    {
+                        Contract.Visibility = Visibility.Collapsed;
+                        Tour.Visibility = Visibility.Collapsed;
+                        break;
+                    }
+            }
+            //ProfilePicture.Source = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Big_Floppa_and_Justin_2_%28cropped%29.jpg/210px-Big_Floppa_and_Justin_2_%28cropped%29.jpg";
             //connectionString = ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
             //employeeAdapter = new NpgsqlDataAdapter("SELECT * from employee", connectionString);
             //employeeBuilder =  new NpgsqlCommandBuilder(employeeAdapter);
             //employeeAdapter.Fill(dataSet, "employee");
             //employeeBuilder.GetInsertCommand();
+
+        }
+
+        private void UserData_Click(object sender, EventArgs e)
+        {
 
         }
 
@@ -101,21 +108,21 @@ namespace TourAgency_
 
         private void Tour_Loaded(object sender, RoutedEventArgs e)
         {
-            var data = tourService.GetAllTours().Select(i => new
-            {
-                Id = i.Id,
-                Name = i.Name,
-                Description = i.Description,
-                City = directionService.GetDirection(i.DirectionId).City,
-                Country = directionService.GetDirection(i.DirectionId).Country,
-                Transporttype = transportTypeService.GetTransportType(i.TransportTypeId).Name,
-                Touroperator = tourOperatorService.GetTourOperator(i.TourOperatorId).Name,
-                ArrivalDate = i.ArrivalDate,
-                DepartuteDate = i.DepartureDate,
-                HotelStarsCount = i.HotelStarsCount,
-                Price = i.Price,
-            });
-            LoadData(tour, data);
+            //var data = tourService.GetAllTours().Select(i => new
+            //{
+            //    Id = i.Id,
+            //    Name = i.Name,
+            //    Description = i.Description,
+            //    City = directionService.GetDirection(i.DirectionId).City,
+            //    Country = directionService.GetDirection(i.DirectionId).Country,
+            //    Transporttype = transportTypeService.GetTransportType(i.TransportTypeId).Name,
+            //    Touroperator = tourOperatorService.GetTourOperator(i.TourOperatorId).Name,
+            //    ArrivalDate = i.ArrivalDate,
+            //    DepartuteDate = i.DepartureDate,
+            //    HotelStarsCount = i.HotelStarsCount,
+            //    Price = i.Price,
+            //});
+            //LoadData(tour, data);
 
         }
 
@@ -375,7 +382,7 @@ namespace TourAgency_
         private void AddTourButton_Click(object sender, RoutedEventArgs e)
         {
             CreateTour f = new CreateTour();
-            f.Direction.ItemsSource = directionService.GetAllDirections().Select(i => new { Id = i.Id, Name = "Страна: " + i.Country + "| Город" + i.City}).ToList();
+            f.Direction.ItemsSource = directionService.GetAllDirections().Select(i => new { Id = i.Id, Name = "Страна: " + i.Country + "| Город" + i.City }).ToList();
             f.TransportType.ItemsSource = transportTypeService.GetAllTransportTypes().Select(i => new { Id = i.Id, Name = i.Name }).ToList();
             f.TourOperator.ItemsSource = tourOperatorService.GetAllTourOperators().Select(i => new { Id = i.Id, Name = i.Name }).ToList();
             Nullable<bool> dialogResult = f.ShowDialog();

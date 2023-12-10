@@ -20,6 +20,7 @@ namespace DomainLevel
         public DateOnly ArrivalDate { get; set; }
         public DateOnly DepartureDate { get; set; }
         public int HotelStarsCount { get; set; }
+        public string? ImageLink {  get; set; }
         public int Price { get; set; }
     }
 }

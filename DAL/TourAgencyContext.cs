@@ -20,13 +20,13 @@ namespace DAL
         public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<RequestStatus> RequestStatuses { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserData> UsersData { get; set; } 
 
 
         public TourAgencyContext() : base()
         {
             Database.EnsureCreated();
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=1;Database=TourAgency1; Include Error Detail=true");

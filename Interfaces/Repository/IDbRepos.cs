@@ -22,6 +22,8 @@ namespace Interfaces.Repository
         IRepository<TourOperator> TourOperators { get; }
 
         IRepository<RequestStatus> RequestStatuses { get; }
+        IRepository<Request> Requests { get; }
+        IRepository<User> Users { get; }
         IReportsRepository Reports {  get; }
         int Save();
     }
