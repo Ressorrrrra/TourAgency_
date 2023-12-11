@@ -1,7 +1,4 @@
-﻿using Interfaces.DTO;
-using Interfaces.Repository;
-using BLL.Services;
-using DAL;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Interfaces.Services;
+
 
 namespace TourAgency_
 {

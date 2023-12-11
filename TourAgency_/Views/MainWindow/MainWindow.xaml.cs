@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,25 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace TourAgency_
+namespace TourAgency_.Views.MainWindow
 {
     /// <summary>
-    /// Логика взаимодействия для CreateEmployee.xaml
+    /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class CreateEmployee : Window
+    public partial class MainWindow : Window
     {
-        public CreateEmployee()
+        public MainWindow()
         {
             InitializeComponent();
         }
-
-        private void AddButton_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
-            this.Close();
-        }
-
-
-
     }
 }

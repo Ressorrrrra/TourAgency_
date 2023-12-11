@@ -1,11 +1,12 @@
-﻿using DAL.Repository;
-using Interfaces.Repository;
+﻿
 using Ninject.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TourAgency_.Models.Repository;
+using TourAgency_.Models.Interfaces;
 
 namespace TourAgency_.Util
 {
