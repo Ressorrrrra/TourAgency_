@@ -16,38 +16,42 @@ namespace TourAgency_.ViewModels
 {
     public class RegistrationWindowViewModel : ViewModelBase
     {
+
+        Action Close;
         private string? name { get; set; }
-        public string? Name { get { return name; } set { name = value ; OnPropeertyChanged(nameof(Name)); } }
+        public string? Name { get { return name; } set { name = value ; OnPropertyChanged(nameof(Name)); } }
 
         private string login { get; set; }
-        public string Login { get { return login; } set { login = value; OnPropeertyChanged(nameof(Login)); } }
+        public string Login { get { return login; } set { login = value; OnPropertyChanged(nameof(Login)); } }
 
         private string password { get; set; }
-        public string Password { get { return password; } set { password = value; OnPropeertyChanged(nameof(Password)); } }
+        public string Password { get { return password; } set { password = value; OnPropertyChanged(nameof(Password)); } }
 
         private UserType userType { get; set; }
-        public UserType UserType { get { return userType; } set { userType = value; OnPropeertyChanged(nameof(UserType)); } }
+        public UserType UserType { get { return userType; } set { userType = value; OnPropertyChanged(nameof(UserType)); } }
 
         private DateOnly? dateOfBirth { get; set; }
-        public DateOnly? DateOfBirth { get { return dateOfBirth; } set { dateOfBirth = value; OnPropeertyChanged(nameof(DateOfBirth)); } }
+        public DateOnly? DateOfBirth { get { return dateOfBirth; } set { dateOfBirth = value; OnPropertyChanged(nameof(DateOfBirth)); } }
 
         private string? passportNumber {  get; set; }
-        public string? PassportNumber { get { return passportNumber; } set { passportNumber = value; OnPropeertyChanged(nameof(PassportNumber)); } }
+        public string? PassportNumber { get { return passportNumber; } set { passportNumber = value; OnPropertyChanged(nameof(PassportNumber)); } }
         private string? internationalPassportNumber { get; set; }
-        public string? InternationalPassportNumber { get { return internationalPassportNumber; } set { internationalPassportNumber = value; OnPropeertyChanged(nameof(InternationalPassportNumber)); } }
+        public string? InternationalPassportNumber { get { return internationalPassportNumber; } set { internationalPassportNumber = value; OnPropertyChanged(nameof(InternationalPassportNumber)); } }
 
         IUserRepository userRepository;
 
         public ICommand CreateAccount { get; }
 
 
-        public RegistrationWindowViewModel()
+        public RegistrationWindowViewModel(Action close)
         {
             var kernel = new StandardKernel(new NinjectRegistrations(), new ReposModule("DbConnection"));
 
             userRepository = kernel.Get<IUserRepository>();
 
             CreateAccount = new ViewModelCommand(CreateAcc);
+
+            Close = close;
         }
 
         private void CreateAcc(object obj)
@@ -64,6 +68,7 @@ namespace TourAgency_.ViewModels
                 u.InternationalPassportNumber = InternationalPassportNumber;
                 userRepository.Create(u);
                 MessageBox.Show("Учетная запись создана!");
+                Close.Invoke();
             }
 
 

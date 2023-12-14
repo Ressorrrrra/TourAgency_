@@ -13,6 +13,7 @@ namespace TourAgency_.Models.Interfaces
 
         User? GetUser(string login, string password);
 
+        User? GetUserByLogin(string login);
 
     }
 }

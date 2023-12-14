@@ -1,6 +1,8 @@
 ﻿
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,9 +25,15 @@ namespace TourAgency_.Models.Repository
             return db.Users.FirstOrDefault(g => g.Login.Equals(login) && g.Password.Equals(password));
         }
 
+        public User? GetUserByLogin(string login)
+        {
+            return db.Users.FirstOrDefault(g => g.Login.Equals(login));
+        }
+
         public void Create(User item)
         {
             db.Users.Add(item);
+            this.Save(db);
         }
 
         public void Delete(int id)
@@ -34,6 +42,7 @@ namespace TourAgency_.Models.Repository
             if (User != null)
             {
                 db.Users.Remove(User);
+                Save(db);
             }
         }
 
@@ -44,13 +53,20 @@ namespace TourAgency_.Models.Repository
 
         public List<User> GetList()
         {
-            return db.Users.ToList();
+           return db.Users.ToList();
         }
 
 
         public void Update(User item)
         {
             db.Users.Update(item);
+            Save(db);
         }
+
+        void Save(TourAgencyContext db)
+        {
+            db.SaveChanges();
+        }
+
     }
 }

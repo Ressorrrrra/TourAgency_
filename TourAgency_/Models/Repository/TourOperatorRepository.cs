@@ -20,6 +20,7 @@ namespace TourAgency_.Models.Repository
         public void Create(TourOperator item)
         {
             db.TourOperators.Add(item);
+            Save(db);
         }
 
         public void Delete(int id)
@@ -28,6 +29,7 @@ namespace TourAgency_.Models.Repository
             if (TourOperator != null)
             {
                 db.TourOperators.Remove(TourOperator);
+                Save(db);
             }
         }
 
@@ -44,6 +46,12 @@ namespace TourAgency_.Models.Repository
         public void Update(TourOperator item)
         {
             db.TourOperators.Update(item);
+            Save(db);
+        }
+
+        void Save(TourAgencyContext db)
+        {
+            db.SaveChanges();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TourAgency_.Views;
-using TourAgency_.Views.MainWindow;
-using TourAgency_.Views.RegistrationWindow;
 
-namespace TourAgency_.Views.LoginWindow
+namespace TourAgency_.Views.MainWindow.ChildViews.TourListView
 {
     /// <summary>
-    /// Логика взаимодействия для LoginWindow.xaml
+    /// Логика взаимодействия для ToursListView.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class ToursListView : UserControl
     {
-        public LoginWindow(Action action1, Action action2)
+        public ToursListView()
         {
             InitializeComponent();
-            this.DataContext = new LoginWindowViewModel(action1, action2);
         }
-
     }
 }

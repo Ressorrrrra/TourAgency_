@@ -8,6 +8,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using TourAgency_.Views.LoginWindow;
+using TourAgency_.Views.MainWindow;
+using TourAgency_.Views.RegistrationWindow;
 
 namespace TourAgency_
 {
@@ -16,17 +19,35 @@ namespace TourAgency_
     /// </summary>
     public partial class App : Application
     {
+        MainWindow m;
+        LoginWindow l;
+        RegistrationWindow r;
+        public void main1(object sender, EventArgs e)
+        {
+            var kernel = new StandardKernel(new NinjectRegistrations(), new ReposModule("DbConnection"));
+            l = new LoginWindow(OpenMainWindow, OpenRegistrationWindow);
+            l.Show();
+        }
 
-        //public static void Main()
-        //{
-        //    var kernel = new StandardKernel(new NinjectRegistrations(), new ReposModule("DbConnection"));
+        private void OpenMainWindow()
+        {
+            m = new MainWindow();
+            m.Show();
+            l.Close();
 
-        //    IContractService contractServ = kernel.Get<IContractService>();
-        //    IEmployeeService employeeServ = kernel.Get<IEmployeeService>();
-        //    App app = new App();
-        //    app.Run(new MainWindow(contractServ, employeeServ));
-        //}
-       
-        
+
+        }
+
+        private void OpenRegistrationWindow()
+        {
+            r = new RegistrationWindow(CloseRegistrationWindow);
+            r.ShowDialog();
+        }
+
+        private void CloseRegistrationWindow()
+        {
+            r.Close();
+        }
+
     }
 }

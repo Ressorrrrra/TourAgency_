@@ -20,6 +20,7 @@ namespace TourAgency_.Models.Repository
         public void Create(Direction item)
         {
             db.Directions.Add(item);
+            Save(db);
         }
 
         public void Delete(int id)
@@ -28,6 +29,7 @@ namespace TourAgency_.Models.Repository
             if (Direction != null)
             {
                 db.Directions.Remove(Direction);
+                Save(db);
             }
         }
 
@@ -44,6 +46,12 @@ namespace TourAgency_.Models.Repository
         public void Update(Direction item)
         {
             db.Directions.Update(item);
+            Save(db);
+        }
+
+        void Save(TourAgencyContext db)
+        {
+            db.SaveChanges();
         }
     }
 }

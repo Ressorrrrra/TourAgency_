@@ -20,6 +20,7 @@ namespace TourAgency_.Models.Repository
         public void Create(Contract item)
         {
             db.Contracts.Add(item);
+            Save(db);
         }
 
         public void Delete(int id)
@@ -28,6 +29,7 @@ namespace TourAgency_.Models.Repository
             if (contract != null)
             {
                 db.Contracts.Remove(contract);
+                Save(db);
             }
         }
 
@@ -44,6 +46,12 @@ namespace TourAgency_.Models.Repository
         public void Update(Contract item)
         {
             db.Contracts.Update(item);
+            Save(db);
+        }
+
+        void Save(TourAgencyContext db)
+        {
+            db.SaveChanges();
         }
     }
 }

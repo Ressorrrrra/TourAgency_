@@ -315,7 +315,7 @@ namespace TourAgency_.Models.Entities
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("UserType")
+                    b.Property<int>("Usertype")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

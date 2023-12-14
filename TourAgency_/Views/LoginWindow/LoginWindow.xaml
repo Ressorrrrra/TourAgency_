@@ -51,7 +51,7 @@
     HorizontalAlignment="Left"
     FontSize="20"
     Margin="10">
-            <!--<Hyperlink Click="Registration_Click"> Зарегистрироваться </Hyperlink>-->
+            <Hyperlink Command="{Binding Register}"> Зарегистрироваться </Hyperlink>
         </TextBlock>
         <TextBox
             x:Name="Login"

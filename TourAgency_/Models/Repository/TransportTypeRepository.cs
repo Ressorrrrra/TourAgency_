@@ -20,6 +20,7 @@ namespace TourAgency_.Models.Repository
         public void Create(TransportType item)
         {
             db.TransportTypes.Add(item);
+            Save(db);
         }
 
         public void Delete(int id)
@@ -28,6 +29,7 @@ namespace TourAgency_.Models.Repository
             if (TransportType != null)
             {
                 db.TransportTypes.Remove(TransportType);
+                Save(db);
             }
         }
 
@@ -44,6 +46,12 @@ namespace TourAgency_.Models.Repository
         public void Update(TransportType item)
         {
             db.TransportTypes.Update(item);
+            Save(db);
+        }
+
+        void Save(TourAgencyContext db)
+        {
+            db.SaveChanges();
         }
     }
 }

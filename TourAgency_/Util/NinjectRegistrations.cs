@@ -18,7 +18,7 @@ namespace TourAgency_.Util
             //Bind<IContractRepository>().To<ContractRepository>();
             //Bind<IEmployeeService>().To<EmployeeService>();
             //Bind<IClientService>().To<ClientService>();
-            //Bind<ITourService>().To<TourService>();
+            Bind<ITourRepository>().To<TourRepository>();
             //Bind<IDirectionService>().To<DirectionService>();
             //Bind<ITransportTypeService>().To<TransportTypeService>();
             //Bind<ITourOperatorService>().To<TourOperatorService>();

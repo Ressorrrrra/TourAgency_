@@ -9,7 +9,7 @@ using TourAgency_.Models.Interfaces;
 
 namespace TourAgency_.Models.Repository
 {
-    public class TourRepository : IRepository<Tour>
+    public class TourRepository : ITourRepository
     {
         private TourAgencyContext db;
 
@@ -20,6 +20,7 @@ namespace TourAgency_.Models.Repository
         public void Create(Tour item)
         {
             db.Tours.Add(item);
+            Save(db);
         }
 
         public void Delete(int id)
@@ -28,6 +29,7 @@ namespace TourAgency_.Models.Repository
             if (tour != null)
             {
                 db.Tours.Remove(tour);
+                Save(db);
             }
         }
 
@@ -44,6 +46,12 @@ namespace TourAgency_.Models.Repository
         public void Update(Tour item)
         {
             db.Tours.Update(item);
+            Save(db);
+        }
+
+        void Save(TourAgencyContext db)
+        {
+            db.SaveChanges();
         }
     }
 }

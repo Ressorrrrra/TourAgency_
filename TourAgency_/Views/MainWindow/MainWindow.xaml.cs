@@ -11,9 +11,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TourAgency_.ViewModels;
 
 namespace TourAgency_.Views.MainWindow
 {
+
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
@@ -22,6 +24,7 @@ namespace TourAgency_.Views.MainWindow
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainWindowViewModel();
         }
     }
 }

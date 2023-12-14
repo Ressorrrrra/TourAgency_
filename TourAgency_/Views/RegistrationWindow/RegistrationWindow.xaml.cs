@@ -27,10 +27,10 @@ namespace TourAgency_.Views.RegistrationWindow
 
 
 
-        public RegistrationWindow()
+        public RegistrationWindow(Action action1)
         {
             InitializeComponent();
-            this.DataContext = new RegistrationWindowViewModel();
+            this.DataContext = new RegistrationWindowViewModel(action1);
         }
 
     }

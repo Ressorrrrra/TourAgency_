@@ -10,7 +10,7 @@ namespace TourAgency_.ViewModels
     public class ViewModelBase
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-        public void OnPropeertyChanged(string name)
+        public void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
