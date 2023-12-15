@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:TourAgency_.Views.MainWindow"
         xmlns:toursListView="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.TourListView"
         xmlns:addTourView="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.AddTourView"
+
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
     <Window.Resources>
@@ -81,7 +82,7 @@
                 Grid.Column="1"
                 Width="auto"
                 Height="auto"
-                Content="{Binding ChildContentView, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                Content="{Binding ChildContentView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
 

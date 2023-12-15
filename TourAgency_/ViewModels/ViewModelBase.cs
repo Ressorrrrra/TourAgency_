@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TourAgency_.ViewModels
 {
-    public class ViewModelBase
+    public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         public void OnPropertyChanged(string name)

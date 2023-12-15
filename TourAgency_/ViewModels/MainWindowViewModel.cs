@@ -20,7 +20,7 @@ namespace TourAgency_.ViewModels
 
         private User user;
 
-        private ViewModelBase childContentView;
+        public ViewModelBase childContentView;
 
         private ToursListViewModel toursListView;
         private AddTourViewModel addTourView;
@@ -31,8 +31,7 @@ namespace TourAgency_.ViewModels
 
         private string usertype { get; set; }
         public string Usertype { get { return usertype; } set { usertype = value; OnPropertyChanged(nameof(Usertype)); } }
-        private ObservableCollection<Tour> toursList { get; set; }
-        public ObservableCollection<Tour> ToursList { get { return toursList; } set { toursList = value; OnPropertyChanged(nameof(ToursList)); } }
+
 
         
 
