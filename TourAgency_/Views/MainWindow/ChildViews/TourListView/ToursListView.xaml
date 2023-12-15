@@ -60,7 +60,8 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 x:Name="AddTour"
-                Visibility="{Binding }">
+                Visibility="{Binding AddButtonVisibility, UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding AddTour}">
             <TextBlock>Добавить тур</TextBlock>
         </Button>
     </Grid>
