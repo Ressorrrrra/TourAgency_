@@ -16,15 +16,15 @@ namespace TourAgency_.Util
         public override void Load()
         {
             //Bind<IContractRepository>().To<ContractRepository>();
-            //Bind<IEmployeeService>().To<EmployeeService>();
-            //Bind<IClientService>().To<ClientService>();
+            //Bind<IEmployeeRepository>().To<EmployeeRepository>();
+            //Bind<IClientRepository>().To<ClientRepository>();
             Bind<ITourRepository>().To<TourRepository>();
-            //Bind<IDirectionService>().To<DirectionService>();
-            //Bind<ITransportTypeService>().To<TransportTypeService>();
-            //Bind<ITourOperatorService>().To<TourOperatorService>();
+            Bind<IDirectionRepository>().To<DirectionRepository>();
+            Bind<ITransportTypeRepository>().To<TransportTypeRepository>();
+            Bind<ITourOperatorRepository>().To<TourOperatorRepository>();
             Bind<IUserRepository>().To<UserRepository>();
-            //Bind<IRequestService>().To<RequestService>();
-            //Bind<ILoggingService>().To<UserRepository>();
+            //Bind<IRequestRepository>().To<RequestRepository>();
+            //Bind<ILoggingRepository>().To<UserRepository>();
         }
     }
 }

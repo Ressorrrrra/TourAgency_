@@ -9,7 +9,7 @@ using TourAgency_.Models.Interfaces;
 
 namespace TourAgency_.Models.Repository
 {
-    public class TourOperatorRepository : IRepository<TourOperator>
+    public class TourOperatorRepository : ITourOperatorRepository
     {
         private TourAgencyContext db;
 

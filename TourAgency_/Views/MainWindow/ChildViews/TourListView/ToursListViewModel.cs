@@ -24,16 +24,26 @@ namespace TourAgency_.Views.MainWindow.ChildViews.TourListView
         public ObservableCollection<Tour> ToursList { get { return toursList; } set { toursList = value; OnPropertyChanged(nameof(ToursList)); } }
 
         public ICommand AddTour { get; }
+        public ICommand ViewTour { get; }
+
+        public ViewModelCommand View;
 
 
 
-        public ToursListViewModel(UserType userType, ViewModelCommand add)
+        public ToursListViewModel(UserType userType, ViewModelCommand add, ViewModelCommand view)
         {
             var kernel = new StandardKernel(new NinjectRegistrations(), new ReposModule("DbConnection"));
             tourRepository = kernel.Get<ITourRepository>();
             toursList = new ObservableCollection<Tour>(tourRepository.GetList());
             AddTour = add;
+            View = view;
+            ViewTour = new ViewModelCommand(ViewTourCommand);
             if (userType != UserType.Administrator) addButtonVisibility = Visibility.Collapsed;
+        }
+
+        private void ViewTourCommand(object obj)
+        {
+            View.Execute(obj);
         }
 
     }

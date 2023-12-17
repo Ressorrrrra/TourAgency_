@@ -31,24 +31,135 @@
         </Image>
         <StackPanel
             Grid.Row="0"
-            Grid.Column="1">
-            <TextBlock Text="Название тура"/>
+            Grid.Column="1"
+            Grid.RowSpan="3">
+            <TextBlock Text="Название тура" 
+                       Margin="10,10,10,0"/>
             <TextBox Text="{Binding Name, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                      Height="auto"
-                     Width="auto"></TextBox>
+                     Width="auto"
+                     Margin="10,0,10,0"></TextBox>
+
+            <TextBlock Text="Ссылка на изображение"
+                       Margin="10,10,10,0"/>
+            <TextBox Text="{Binding Image, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                     Margin="10,0,10,0"></TextBox>
+            <StackPanel Orientation="Vertical"
+                        Margin="10,0,0,0">
+                <WrapPanel>
+                    <WrapPanel Orientation="Vertical">
+                        <TextBlock Text="Направление:"
+                               Margin="0,0,50,0"/>
+                        <ComboBox ItemsSource="{Binding Directions}" 
+                              SelectedValuePath="Id"
+                              SelectedValue="{Binding ChosenDirectionId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="0,10,10,0">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <Run Text="{Binding City}" />
+                                        <Run Text=", " />
+                                        <Run Text="{Binding Country}" />
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </WrapPanel>
+
+                    <WrapPanel Orientation="Vertical">
+                        <TextBlock Text="Вид транспорта:"
+                               Margin="0,0,50,0"/>
+                        <ComboBox 
+                        ItemsSource="{Binding TransportTypes}"
+                        SelectedValuePath="Id"
+                        SelectedValue="{Binding ChosenTransportTypeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Margin="0,10,10,0"> 
+                        <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <Run Text="{Binding Name}" />
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </WrapPanel>
+
+                    <WrapPanel Orientation="Vertical">
+                        <TextBlock Text="Туроператор:"
+                                Margin="0,0,50,0"/>
+                        <ComboBox                    
+                    ItemsSource="{Binding TourOperators}"
+                    SelectedValuePath="Id" 
+                    SelectedValue="{Binding ChosenTourOperatorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="0,10,30,0">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                <Run Text="{Binding Name}" />
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </WrapPanel>
+
+
+
+                </WrapPanel>
+            </StackPanel>
+            <TextBlock Text="Описание" Margin="10,10,0,0"/>
+            <TextBox Text="{Binding Description, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                     Margin="10"
+                     Height="100"
+                     TextWrapping="Wrap">
+                
+            </TextBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="0"
+                    Grid.Row="3"
+                    Grid.ColumnSpan="2">
+            <WrapPanel Orientation="Vertical"
+                        Margin="10,0,0,0">
+                <TextBlock Text="Дата прибытия"
+                       Margin="10,0,10,3"/>
+                <DatePicker Margin="10,0,0,0"/>
+                <TextBlock Text="Дата прибытия"
+                    Margin="10,0,10,3"/>
+                <DatePicker Margin="10,0,0,0"/>
+            </WrapPanel>
+            <WrapPanel VerticalAlignment="Center"
+                        Margin="200,0,0,0">
+                <ComboBox SelectedValue="{Binding HotelStarsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedValuePath="Tag">
+                    <ComboBoxItem Content="-" Tag="0"/>
+                    <ComboBoxItem Content="1" Tag="1"/>
+                    <ComboBoxItem Content="2" Tag="2"/>
+                    <ComboBoxItem Content="3" Tag="3"/>
+                    <ComboBoxItem Content="4" Tag="4"/>
+                    <ComboBoxItem Content="5" Tag="5"/>
+                </ComboBox>
+            </WrapPanel>
+            <WrapPanel VerticalAlignment="Center"
+                       HorizontalAlignment="Right"
+                       Margin="220,0,0,0"
+                       Orientation="Vertical">
+                <TextBlock Text="Стоимость"/>
+                <TextBox Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Width="150"
+                         Margin="0,5"/>
+            </WrapPanel>
+
+        </StackPanel>
+        <StackPanel Orientation="Vertical">
+
         </StackPanel>
 
-        <StackPanel
-    Grid.Row="1"
-    Grid.Column="1">
-            <TextBlock Text="Ссылка на изображение"/>
-            <TextBox Text="{Binding Image, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        </StackPanel>
         <Button Grid.Column="0"
                 Grid.Row="5"
                 Grid.ColumnSpan="2"
-                Margin="250,10,250,10">
-            <TextBlock Text="AAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                Margin="250,20,250,20"
+                Command="{Binding AddTour}">
+            <TextBlock Text="Создать тур"/>
         </Button>
     </Grid>
 </UserControl>

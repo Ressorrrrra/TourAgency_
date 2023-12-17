@@ -11,22 +11,24 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="7*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="7*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel
+        <ScrollViewer
             x:Name="ListView"
-            Orientation="Horizontal"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Grid.Row="1">
+            Grid.Row="1"
+            Width="auto"
+            Height="auto"
+            VerticalScrollBarVisibility="Auto">
             <ListView ItemsSource="{Binding ToursList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical">
+                        <WrapPanel Orientation="Vertical">
                             <Image Source="{Binding ImageLink, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                Width="256"
                Height="192"
@@ -40,11 +42,12 @@
                                 <TextBlock Text="Звездность отеля:"/>
                                 <TextBlock 
                                     Text="{Binding HotelStarsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                <Button>
+                                <Button Command="{Binding DataContext.ViewTour, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                        CommandParameter="{Binding Id}">
                                     <TextBlock Text="Подробнее"/>
                                 </Button>
                             </StackPanel>
-                        </StackPanel>
+                        </WrapPanel>
 
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -55,7 +58,7 @@
                 </ListView.ItemsPanel>
             </ListView>
 
-        </StackPanel>
+        </ScrollViewer>
         <Button Margin="12"
                 Grid.Row="0"
                 Grid.Column="0"

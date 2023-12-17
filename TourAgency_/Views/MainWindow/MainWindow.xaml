@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:TourAgency_.Views.MainWindow"
         xmlns:toursListView="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.TourListView"
         xmlns:addTourView="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.AddTourView"
+        xmlns:tourInfoView="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.TourInfoView"
 
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
@@ -16,6 +17,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type addTourView:AddTourViewModel}">
                 <addTourView:AddTourView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type tourInfoView:TourInfoViewModel}">
+                <tourInfoView:TourInfoView/>
             </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
@@ -83,6 +87,18 @@
                 Width="auto"
                 Height="auto"
                 Content="{Binding ChildContentView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="0"
+                        Grid.Row="1">
+                <Button Margin="10"
+                        Height="40">
+                    <TextBlock Text="Туры"/>
+                </Button>
+                <Button Margin="10"
+                        Height="40">
+                    <TextBlock Text="Заявки"/>
+                </Button>
+            </StackPanel>
 
 
 
