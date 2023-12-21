@@ -11,6 +11,7 @@ using TourAgency_.ViewModels;
 using TourAgency_.Views.MainWindow.ChildViews.AddTourView;
 using TourAgency_.Views.MainWindow.ChildViews.TourInfoView;
 using TourAgency_.Views.MainWindow.ChildViews.TourListView;
+using TourAgency_.Views.MainWindow.ChildViews.CreateRequestView;
 
 namespace TourAgency_.Views.MainWindow
 {
@@ -59,10 +60,22 @@ namespace TourAgency_.Views.MainWindow
 
         public ViewModelCommand ReturnFromTourInfo(ViewModelCommand parent)
         {
-            return new ViewModelCommand(delegate (object id) { ChildContentView = new TourInfoViewModel(id, parent, new ViewModelCommand(CreateRequest)); });
+            return new ViewModelCommand(delegate (object id)
+            {
+                var tourInfo = new TourInfoViewModel(id, parent, ReturnFromCreateRequest(tourInfo));
+                ChildContentView = tourInfo;
+            });
         }
 
-        public void CreateRequest(object id) { }
+        public ViewModelCommand ReturnFromCreateRequest(ViewModelCommand parent)
+        {
+            return new ViewModelCommand(delegate (object id)
+            {
+                var createRequest = new CreateRequestViewModel(id, ChildContentView, ReturnFromTourInfo(parent));
+                ChildContentView = createRequest;
+            });
+        }
+
 
     }
 }

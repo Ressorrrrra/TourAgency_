@@ -23,6 +23,7 @@ namespace TourAgency_.Util
             Bind<ITransportTypeRepository>().To<TransportTypeRepository>();
             Bind<ITourOperatorRepository>().To<TourOperatorRepository>();
             Bind<IUserRepository>().To<UserRepository>();
+            Bind<IRequestRepository>().To<RequestRepository>();
             //Bind<IRequestRepository>().To<RequestRepository>();
             //Bind<ILoggingRepository>().To<UserRepository>();
         }

@@ -9,7 +9,7 @@ using TourAgency_.Models.Interfaces;
 
 namespace TourAgency_.Models.Repository
 {
-    internal class RequestRepository : IRepository<Request>
+    internal class RequestRepository : IRequestRepository
     {
         private TourAgencyContext db;
 

@@ -22,6 +22,9 @@ namespace TourAgency_.Views.MainWindow.ChildViews.TourInfoView
 
         private string name { get; set; }
         public string Name { get { return name; } set { name = value; OnPropertyChanged(nameof(Name)); } }
+
+        private int id { get; set; }
+        public int Id { get { return id; } set { id = value; OnPropertyChanged(nameof(Id)); } }
         private string description { get; set; }
         public string Description { get { return description; } set { description = value; OnPropertyChanged(nameof(Description)); } }
         private string? image { get; set; }
@@ -61,7 +64,7 @@ namespace TourAgency_.Views.MainWindow.ChildViews.TourInfoView
             transportTypeRepository = kernel.Get<ITransportTypeRepository>();
             tourRepository = kernel.Get<ITourRepository>();
             Tour tour = tourRepository.GetItem((int)tourId);
-
+            Id = tour.Id;
             Name = tour.Name;
             Image = tour.ImageLink;
             var direction = directionRepository.GetItem(tour.DirectionId);

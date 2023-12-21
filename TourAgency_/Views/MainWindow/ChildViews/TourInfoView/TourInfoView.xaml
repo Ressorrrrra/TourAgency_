@@ -164,7 +164,8 @@
                 HorizontalAlignment="Left"
                 Background="Transparent"
                 BorderThickness="0"
-                Command="{Binding Return}">
+                Command="{Binding CreateRequest}"
+                CommandParameter="{Binding Id}">
                 <Image Source="/Images/Edit.png"/>
             </Button>
         </StackPanel>
