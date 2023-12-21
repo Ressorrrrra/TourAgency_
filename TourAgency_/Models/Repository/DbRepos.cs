@@ -19,7 +19,6 @@ namespace TourAgency_.Models.Repository
         private DirectionRepository directionRepository;
         private TransportTypeRepository transportTypeRepository;
         private TourOperatorRepository tourOperatorRepository;
-        private RequestStatusRepository requestStatusRepository;
         private RequestRepository requestRepository;
         private UserRepository userRepository;
         public DbRepos()
@@ -94,16 +93,6 @@ namespace TourAgency_.Models.Repository
                 if (clientRepository == null)
                     clientRepository = new ClientRepository(db);
                 return clientRepository;
-            }
-        }
-
-        public IRepository<RequestStatus> RequestStatuses
-        {
-            get
-            {
-                if (requestStatusRepository == null)
-                    requestStatusRepository = new RequestStatusRepository(db);
-                return requestStatusRepository;
             }
         }
 

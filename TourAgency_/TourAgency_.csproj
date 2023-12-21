@@ -7,6 +7,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+
+
   <ItemGroup>
     <Compile Remove="ApplicationContext.cs" />
   </ItemGroup>
@@ -28,6 +30,16 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Return.png" />
+    <Resource Include="Images\Edit.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Return.png" />
+    <None Remove="Images\Edit.png" />
   </ItemGroup>
 
   <ItemGroup>

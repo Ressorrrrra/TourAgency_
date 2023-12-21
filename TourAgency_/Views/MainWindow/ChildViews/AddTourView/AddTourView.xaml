@@ -122,10 +122,12 @@
                         Margin="10,0,0,0">
                 <TextBlock Text="Дата прибытия"
                        Margin="10,0,10,3"/>
-                <DatePicker Margin="10,0,0,0"/>
-                <TextBlock Text="Дата прибытия"
+                <DatePicker Margin="10,0,0,0"
+                            SelectedDate="{Binding ArrivalDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Дата отбытия"
                     Margin="10,0,10,3"/>
-                <DatePicker Margin="10,0,0,0"/>
+                <DatePicker Margin="10,0,0,0"
+                            SelectedDate="{Binding DepartureDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </WrapPanel>
             <WrapPanel VerticalAlignment="Center"
                         Margin="200,0,0,0">

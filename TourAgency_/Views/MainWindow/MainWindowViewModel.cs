@@ -1,26 +1,25 @@
 ﻿using Ninject;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TourAgency_.Models.Entities;
 using TourAgency_.Models.Interfaces;
-using TourAgency_.Models.Repository;
 using TourAgency_.Util;
+using TourAgency_.ViewModels;
 using TourAgency_.Views.MainWindow.ChildViews.AddTourView;
 using TourAgency_.Views.MainWindow.ChildViews.TourInfoView;
 using TourAgency_.Views.MainWindow.ChildViews.TourListView;
 
-namespace TourAgency_.ViewModels
+namespace TourAgency_.Views.MainWindow
 {
-    public class MainWindowViewModel : ViewModelBase
+    class MainWindowViewModel : ViewModelBase
     {
+
         IUserRepository userRepository;
         ITourRepository tourRepository;
 
-        private ViewModelCommand TourInfoParent;
 
         private User user;
 
@@ -37,7 +36,7 @@ namespace TourAgency_.ViewModels
         public string Usertype { get { return usertype; } set { usertype = value; OnPropertyChanged(nameof(Usertype)); } }
 
 
-        
+
 
         public MainWindowViewModel()
         {
@@ -54,16 +53,17 @@ namespace TourAgency_.ViewModels
             ChildContentView = toursListView;
         }
 
-        private void AddTourCommand(object obj) =>  ChildContentView = addTourView;
+        private void AddTourCommand(object obj) => ChildContentView = addTourView;
         private void ToursListCommand(object obj) => ChildContentView = toursListView;
 
 
         public ViewModelCommand ReturnFromTourInfo(ViewModelCommand parent)
         {
-            return new ViewModelCommand( delegate(object id){ ChildContentView = new TourInfoViewModel(id, parent, new ViewModelCommand(CreateRequest)); });
+            return new ViewModelCommand(delegate (object id) { ChildContentView = new TourInfoViewModel(id, parent, new ViewModelCommand(CreateRequest)); });
         }
 
         public void CreateRequest(object id) { }
 
     }
 }
+

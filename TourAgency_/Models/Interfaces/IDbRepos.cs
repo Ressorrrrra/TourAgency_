@@ -21,7 +21,6 @@ public interface IDbRepos
 
     IRepository<TourOperator> TourOperators { get; }
 
-    IRepository<RequestStatus> RequestStatuses { get; }
     IRepository<Request> Requests { get; }
     IRepository<User> Users { get; }
     int Save();

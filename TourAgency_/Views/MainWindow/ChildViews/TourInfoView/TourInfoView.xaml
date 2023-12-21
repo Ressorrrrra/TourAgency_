@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.TourInfoView"
+             xmlns:proj="clr-namespace:TourAgency_"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=local:TourInfoViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -15,107 +16,158 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
+
+
         <Image Grid.Column="0"
            Grid.Row="0"
-           Grid.RowSpan="3"
            Width="auto"
            Height="auto"
-           Margin="30,0"
+           Stretch="Fill"
            Source="{Binding Image, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </Image>
-        <StackPanel
-        Grid.Row="0"
-        Grid.Column="1"
-        Grid.RowSpan="3">
-            <WrapPanel Orientation="Horizontal">
-                <TextBlock Text="Название тура" 
-                   Margin="10,10,10,0"/>
+
+
+
+        <StackPanel Orientation="Vertical"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                    Margin="10,0,0,0">
+            <WrapPanel Orientation="Horizontal"
+                       Margin="0,10,0,0">
+                <TextBlock Text="Название тура:" 
+                   Margin="0,0,10,0"/>
                 <TextBlock Text="{Binding Name, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                  Height="auto"
-                 Width="auto"
-                 Margin="10,0,10,0"></TextBlock>
+                 Width="auto"/>
             </WrapPanel>
 
-
-            <StackPanel Orientation="Vertical"
-                    Margin="10,0,0,0">
-                <WrapPanel Orientation="Vertical">
-                    <WrapPanel Orientation="Horizontal">
-                        <TextBlock Text="Направление:"
-                           Margin="0,10,10,0"/>
-                        <TextBlock/>
-                    </WrapPanel>
-
-                    <WrapPanel Orientation="Horizontal">
-                        <TextBlock Text="Вид транспорта:"
-                           Margin="0,10,10,0"/>
-                        <TextBlock/>
-                    </WrapPanel>
-
-                    <WrapPanel Orientation="Horizontal">
-                        <TextBlock Text="Туроператор:"
-                            Margin="0,10,10,0"/>
-                        <TextBlock/>
-                    </WrapPanel>
-
-                    <WrapPanel Orientation="Horizontal">
-                        <TextBlock Text="Рейтинг тура:"
-                            Margin="0,10,10,0"/>
-                        <TextBlock/>
-                    </WrapPanel>
-
-                    <WrapPanel Orientation="Horizontal">
-                        <TextBlock Text="Cтоимость:"
-        Margin="0,10,10,0"/>
-                        <TextBlock/>
-                    </WrapPanel>
-
-
+            <WrapPanel Orientation="Vertical"
+                       Margin="0,10,0,0">
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock Text="Направление:"
+                                   
+                           Margin="0,0,10,0"/>
+                    <TextBlock Text="{Binding DirectionName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             Height="auto"
+                             Width="auto"
+                             Margin="0,0,10,0"/>
                 </WrapPanel>
-            </StackPanel>
-            <TextBlock Text="Описание" Margin="10,10,0,0"/>
-            <ScrollViewer>
-                <TextBlock Text="{Binding Description, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                 Margin="10"
-                 Height="130"
-                 TextWrapping="Wrap"/>
-            </ScrollViewer>
 
+                <WrapPanel Orientation="Horizontal"
+                           Margin="0,10,0,0">
+                    <TextBlock Text="Вид транспорта:"
+                           Margin="0,0,10,0"/>
+                    <TextBlock Text="{Binding TransportTypeName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             Height="auto"
+                             Width="auto"
+                             Margin="0,0,0,0"/>
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal"
+                           Margin="0,10,0,0">
+                    <TextBlock Text="Туроператор:"
+                            Margin="0,0,10,0"/>
+                    <TextBlock Text="{Binding TourOperatorName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             Height="auto"
+                             Width="auto"
+                             Margin="0,0,0,0"/>
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal"
+                           Margin="0,10,0,0">
+                    <TextBlock Text="Рейтинг тура:"
+                            Margin="0,0,10,0"/>
+                    <TextBlock Text="{Binding HotelStarsCount, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             Height="auto"
+                             Width="auto"
+                             Margin="0,0,10,0"/>
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal"
+                           Margin="0,10,0,0">
+                    <TextBlock Text="Cтоимость:"
+                            Margin="0,0,10,0"/>
+                    <TextBlock Text="{Binding Price, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             Height="auto"
+                             Width="auto"
+                             Margin="0,0,0,0"/>
+                </WrapPanel>
+                <TextBlock Text="Описание:" Margin="0,10,0,0"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                    <TextBlock Text="{Binding Description, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                            Width="370"
+                            Height="170"
+                            TextWrapping="Wrap"/>
+                </ScrollViewer>
+
+            </WrapPanel>
         </StackPanel>
 
 
-            <WrapPanel Orientation="Vertical"
-                       Grid.Column="0"
-                       Grid.Row="3"
+        <WrapPanel Orientation="Vertical"
+                       Grid.Column="1"
+                       Grid.Row="1"
                        VerticalAlignment="Center"
                     Margin="10,0,0,0">
             <WrapPanel Orientation="Horizontal">
-                <TextBlock Text="Дата прибытия"
-                   Margin="10,0,10,10"/>
-                <TextBlock Margin="10,0,0,20"/>
+                <TextBlock Text="Дата прибытия:"
+                           VerticalAlignment="Center"/>
+                <TextBlock 
+                    Text="{Binding ArrivalDate, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                    Margin="10,0,0,0"/>
             </WrapPanel>
 
-            <WrapPanel>
-                <TextBlock Text="Дата прибытия"
-                Margin="10,0,10,10"/>
-                <TextBlock Margin="10,0,0,0"/>
+            <WrapPanel Orientation="Horizontal"
+                       Margin="0,10,0,0">
+                <TextBlock Text="Дата отбытия:"
+                 VerticalAlignment="Center"/>
+                <TextBlock 
+                     VerticalAlignment="Center"
+                    Text="{Binding DepartureDate, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                    Margin="10,0,0,0"/>
             </WrapPanel>
 
             </WrapPanel>
 
 
-
-        <Button Grid.Column="1"
+        <StackPanel
             Grid.Row="5"
-            Margin="70,0,70,0"
-            VerticalAlignment="Center">
-            <TextBlock Text="Оформить заявку"/>
-        </Button>
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <Button 
+                Width="64"
+                Height="64"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                BorderThickness="0"
+                Command="{Binding Return}">
+                <Image Source="/Images/Return.png"/>
+            </Button>
+
+            <Button 
+                Grid.Row="5"
+                Padding="25,5"
+                Margin="50,0,70,0"
+                VerticalAlignment="Center">
+                <TextBlock Text="Оформить заявку"/>
+            </Button>
+
+            <Button 
+                Width="64"
+                Height="64"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                BorderThickness="0"
+                Command="{Binding Return}">
+                <Image Source="/Images/Edit.png"/>
+            </Button>
+        </StackPanel>
+        
     </Grid>
 </UserControl>

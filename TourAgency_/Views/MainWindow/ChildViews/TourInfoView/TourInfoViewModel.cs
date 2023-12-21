@@ -48,12 +48,12 @@ namespace TourAgency_.Views.MainWindow.ChildViews.TourInfoView
         public int Price { get { return price; } set { price = value; OnPropertyChanged(nameof(Price)); } }
 
 
-        ViewModelCommand ReturnToList;
-        public ICommand LoadImage { get; }
+        public ICommand Return { get; }
+        public ICommand CreateRequest { get; }
 
 
 
-        public TourInfoViewModel(object tourId, ViewModelCommand returnToList)
+        public TourInfoViewModel(object tourId, ViewModelCommand returnTo, ViewModelCommand createRequest)
         {
             var kernel = new StandardKernel(new NinjectRegistrations(), new ReposModule("DbConnection"));
             directionRepository = kernel.Get<IDirectionRepository>();
@@ -74,7 +74,8 @@ namespace TourAgency_.Views.MainWindow.ChildViews.TourInfoView
             Price = tour.Price;
             HotelStarsCount = tour.HotelStarsCount;
 
-            ReturnToList = returnToList;
+            Return = returnTo;
+            CreateRequest = createRequest;
         }
 
     }

@@ -76,6 +76,8 @@ namespace TourAgency_.Views.MainWindow.ChildViews.AddTourView
 
         public AddTourViewModel(ViewModelCommand returnToList)
         {
+            ArrivalDate = DateTime.Now;
+            DepartureDate = DateTime.Now;
             var kernel = new StandardKernel(new NinjectRegistrations(), new ReposModule("DbConnection"));
             directionRepository = kernel.Get<IDirectionRepository>();
             tourOperatorRepository = kernel.Get<ITourOperatorRepository>();
@@ -102,7 +104,6 @@ namespace TourAgency_.Views.MainWindow.ChildViews.AddTourView
             t.Name = Name;
             t.Description = Description;
             t.Price = Price;
-            if (arrivalDate != null) { }
             t.ArrivalDate = DateOnly.FromDateTime(ArrivalDate);
             t.DepartureDate = DateOnly.FromDateTime(DepartureDate);
             t.DirectionId = ChosenDirectionId;

@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TourAgency_.Models.Entities
+namespace TourAgency_.Tests.Mocks
 {
-    public enum RequestStatus
+    internal class MockContext
     {
-        Sent,
-        Processing,
-        Accepted,
-        Ddenied
     }
 }
