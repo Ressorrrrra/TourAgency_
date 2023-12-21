@@ -13,7 +13,7 @@ namespace TourAgency_
             migrationBuilder.RenameColumn(
                 name: "Fullname",
                 table: "Employees",
-                newName: "Name");
+                newName: "userName");
 
             migrationBuilder.AlterColumn<int>(
                 name: "TotalCost",
@@ -28,7 +28,7 @@ namespace TourAgency_
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "Name",
+                name: "userName",
                 table: "Employees",
                 newName: "Fullname");
 

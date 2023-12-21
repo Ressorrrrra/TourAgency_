@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.CreateRequestView"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=local:CreateRequestViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -34,8 +35,8 @@
                HorizontalAlignment="Right"
                VerticalAlignment="Center"
                Margin="0,0,10,0"/>
-        <TextBlock Text=""
-               HorizontalAlignment="Right"
+        <TextBlock Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+               HorizontalAlignment="Left"
                VerticalAlignment="Center"
                Grid.Row="1"
                Grid.Column="1"/>
@@ -46,10 +47,10 @@
        HorizontalAlignment="Right"
         VerticalAlignment="Center"
        Margin="0,0,10,0"/>
-        <TextBlock Text=""
+        <TextBlock Text="{Binding TourName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
        Grid.Row="2"
        Grid.Column="1"
-       HorizontalAlignment="Right"
+       HorizontalAlignment="Left"
         VerticalAlignment="Center"/>
 
         <TextBlock Text="Дата прибытия:"
@@ -58,10 +59,10 @@
         HorizontalAlignment="Right"
          VerticalAlignment="Center"
         Margin="0,0,10,0"/>
-        <TextBlock Text=""
+        <TextBlock Text="{Binding ArrivalDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
         Grid.Row="3"
         Grid.Column="1"
-        HorizontalAlignment="Right"
+        HorizontalAlignment="Left"
          VerticalAlignment="Center"/>
 
         <TextBlock Text="Дата отбытия:"
@@ -70,30 +71,31 @@
         HorizontalAlignment="Right"
          VerticalAlignment="Center"
         Margin="0,0,10,0"/>
-        <TextBlock Text=""
+        <TextBlock Text="{Binding DepartureDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
         Grid.Row="4"
         Grid.Column="1"
-        HorizontalAlignment="Right"
+        HorizontalAlignment="Left"
          VerticalAlignment="Center"/>
 
         <TextBlock Text="Цена:"
-Grid.Row="5"
-Grid.Column="0"
-HorizontalAlignment="Right"
- VerticalAlignment="Center"
-Margin="0,0,10,0"/>
-        <TextBlock Text=""
-Grid.Row="5"
-Grid.Column="1"
-HorizontalAlignment="Right"
- VerticalAlignment="Center"/>
+            Grid.Row="5"
+            Grid.Column="0"
+            HorizontalAlignment="Right"
+             VerticalAlignment="Center"
+            Margin="0,0,10,0"/>
+        <TextBlock Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Grid.Row="5"
+            Grid.Column="1"
+            HorizontalAlignment="Left"
+             VerticalAlignment="Center"/>
 
         <Button Grid.Row="6"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
-            Padding="50,5">
+            Padding="50,5"
+                Command="{Binding CreateRequest}">
             <TextBlock Text="Оформить заявку"/>
         </Button>
 

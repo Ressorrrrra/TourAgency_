@@ -40,7 +40,7 @@ namespace TourAgency_.Models.Entities.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("userName")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -126,7 +126,7 @@ namespace TourAgency_.Models.Entities.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("userName")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -209,7 +209,7 @@ namespace TourAgency_.Models.Entities.Migrations
                     b.Property<string>("ImageLink")
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("userName")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -241,7 +241,7 @@ namespace TourAgency_.Models.Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("userName")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -258,7 +258,7 @@ namespace TourAgency_.Models.Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("userName")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -285,7 +285,7 @@ namespace TourAgency_.Models.Entities.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("userName")
                         .HasColumnType("text");
 
                     b.Property<string>("PassportNumber")

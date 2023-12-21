@@ -154,7 +154,9 @@
                 Grid.Row="5"
                 Padding="25,5"
                 Margin="50,0,70,0"
-                VerticalAlignment="Center">
+                VerticalAlignment="Center"
+                Command="{Binding CreateRequest}"
+                CommandParameter="{Binding Id}">
                 <TextBlock Text="Оформить заявку"/>
             </Button>
 
@@ -163,9 +165,7 @@
                 Height="64"
                 HorizontalAlignment="Left"
                 Background="Transparent"
-                BorderThickness="0"
-                Command="{Binding CreateRequest}"
-                CommandParameter="{Binding Id}">
+                BorderThickness="0">
                 <Image Source="/Images/Edit.png"/>
             </Button>
         </StackPanel>

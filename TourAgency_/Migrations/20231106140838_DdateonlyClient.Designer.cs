@@ -39,7 +39,7 @@ namespace TourAgency_
                     b.Property<int?>("InternationalPassportNumber")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("userName")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -121,7 +121,7 @@ namespace TourAgency_
                     b.Property<int>("ContractCount")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("userName")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -150,7 +150,7 @@ namespace TourAgency_
                     b.Property<int>("HotelStarsCount")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("userName")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -182,7 +182,7 @@ namespace TourAgency_
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("userName")
                         .IsRequired()
                         .HasColumnType("text");
 

@@ -21,8 +21,11 @@ namespace TourAgency_.Views.MainWindow.ChildViews.CreateRequestView
         private IUserRepository userRepository;
         private IRequestRepository requestRepository;
 
-        private string name { get; set; }
-        public string Name { get { return name; } set { name = value; OnPropertyChanged(nameof(Name)); } }
+        private string? userName { get; set; }
+        public string? UserName { get { return userName; } set { userName = value; OnPropertyChanged(nameof(userName)); } }
+
+        private string tourName { get; set; }
+        public string TourName { get { return tourName; } set { tourName = value; OnPropertyChanged(nameof(TourName)); } }
 
         private string arrivalDate { get; set; }
         public string ArrivalDate { get { return arrivalDate; } set { arrivalDate = value; OnPropertyChanged(nameof(ArrivalDate)); } }
@@ -53,7 +56,8 @@ namespace TourAgency_.Views.MainWindow.ChildViews.CreateRequestView
             tour = tourRepository.GetItem((int)tourId);
             user = userRepository.GetItem((int)userId);
 
-            Name = tour.Name;
+            TourName = tour.Name;
+            UserName = user.Name;
 
             ArrivalDate = tour.ArrivalDate.ToString();
             DepartureDate = tour.DepartureDate.ToString();
@@ -61,6 +65,8 @@ namespace TourAgency_.Views.MainWindow.ChildViews.CreateRequestView
 
             ReturnCommand = returnTo;
             ReturnTo = ReturnCommand;
+
+            CreateRequest = new ViewModelCommand(CreateRequestCommand);
 
         }
 

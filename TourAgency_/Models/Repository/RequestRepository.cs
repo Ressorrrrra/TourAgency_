@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.Intrinsics.Arm;
 using TourAgency_.Models.Entities;
 using TourAgency_.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace TourAgency_.Models.Repository
 {
@@ -41,6 +42,11 @@ namespace TourAgency_.Models.Repository
         public List<Request> GetList()
         {
             return db.Requests.ToList();
+        }
+
+        public List<Request>? GetRequestsByUser(int userId)
+        {
+            return db.Requests.Where(i => i.ClientId.Equals(userId)).Include(r => r.Tour).ToList();
         }
 
         public void Update(Request item)

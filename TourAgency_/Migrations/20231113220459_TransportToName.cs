@@ -13,14 +13,14 @@ namespace TourAgency_
             migrationBuilder.RenameColumn(
                 name: "Transport",
                 table: "TransportTypes",
-                newName: "Name");
+                newName: "userName");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.RenameColumn(
-                name: "Name",
+                name: "userName",
                 table: "TransportTypes",
                 newName: "Transport");
         }

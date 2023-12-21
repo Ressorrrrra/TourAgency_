@@ -28,7 +28,7 @@ namespace TourAgency_
                 oldType: "timestamp with time zone");
 
             migrationBuilder.AddColumn<string>(
-                name: "Name",
+                name: "userName",
                 table: "Tours",
                 type: "text",
                 nullable: false,
@@ -47,7 +47,7 @@ namespace TourAgency_
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Name",
+                name: "userName",
                 table: "Tours");
 
             migrationBuilder.AlterColumn<DateTime>(

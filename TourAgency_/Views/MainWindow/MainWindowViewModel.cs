@@ -12,6 +12,9 @@ using TourAgency_.Views.MainWindow.ChildViews.AddTourView;
 using TourAgency_.Views.MainWindow.ChildViews.TourInfoView;
 using TourAgency_.Views.MainWindow.ChildViews.TourListView;
 using TourAgency_.Views.MainWindow.ChildViews.CreateRequestView;
+using TourAgency_.Views.MainWindow.ChildViews.ClientRequestsView;
+using System.Windows.Input;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace TourAgency_.Views.MainWindow
 {
@@ -21,6 +24,8 @@ namespace TourAgency_.Views.MainWindow
         IUserRepository userRepository;
         ITourRepository tourRepository;
 
+        public ICommand ToursList { get; }
+        public ICommand RequestsList { get; }
 
         private User user;
 
@@ -28,6 +33,9 @@ namespace TourAgency_.Views.MainWindow
 
         private ToursListViewModel toursListView;
         private AddTourViewModel addTourView;
+
+        private TourInfoViewModel tourInfoView;
+        private ClientRequestsViewModel clientRequestsView;
 
         public ViewModelBase ChildContentView { get { return childContentView; } set { childContentView = value; OnPropertyChanged(nameof(ChildContentView)); } }
         private string username { get; set; }
@@ -49,32 +57,38 @@ namespace TourAgency_.Views.MainWindow
             username = user.Login;
             usertype = user.UserType.ToString();
             toursListView = new ToursListViewModel(user.UserType, new ViewModelCommand(AddTourCommand), ReturnFromTourInfo(new ViewModelCommand(ToursListCommand)));
-            addTourView = new AddTourViewModel(new ViewModelCommand(ToursListCommand));
+            addTourView = new AddTourViewModel(new ViewModelCommand(UpdatedToursListCommand));
 
             ChildContentView = toursListView;
+            clientRequestsView = new ClientRequestsViewModel(user.Id);
+
+            ToursList = new ViewModelCommand(ToursListCommand);
+            RequestsList = new ViewModelCommand(ClientRequestsViewCommand);
+
         }
 
         private void AddTourCommand(object obj) => ChildContentView = addTourView;
         private void ToursListCommand(object obj) => ChildContentView = toursListView;
+        private void UpdatedToursListCommand(object obj)
+        {
+            toursListView = new ToursListViewModel(user.UserType, new ViewModelCommand(AddTourCommand), ReturnFromTourInfo(new ViewModelCommand(ToursListCommand)));
+            ChildContentView = toursListView;
+        }
 
+        private void ReturnFromCreateRequestCommand(object obj) => ChildContentView = tourInfoView;
 
+        private void CreateRequestCommand(object obj) => ChildContentView = new CreateRequestViewModel(user.Id, obj, new ViewModelCommand(ReturnFromCreateRequestCommand));
         public ViewModelCommand ReturnFromTourInfo(ViewModelCommand parent)
         {
             return new ViewModelCommand(delegate (object id)
             {
-                var tourInfo = new TourInfoViewModel(id, parent, ReturnFromCreateRequest(tourInfo));
-                ChildContentView = tourInfo;
+                tourInfoView = new TourInfoViewModel(id, parent, new ViewModelCommand(CreateRequestCommand));
+                ChildContentView = tourInfoView;
             });
         }
 
-        public ViewModelCommand ReturnFromCreateRequest(ViewModelCommand parent)
-        {
-            return new ViewModelCommand(delegate (object id)
-            {
-                var createRequest = new CreateRequestViewModel(id, ChildContentView, ReturnFromTourInfo(parent));
-                ChildContentView = createRequest;
-            });
-        }
+        private void ClientRequestsViewCommand(object obj) => ChildContentView = new ClientRequestsViewModel(user.Id);
+
 
 
     }
