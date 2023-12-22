@@ -67,6 +67,11 @@ namespace UserAgency_.Tests.Mocks
             throw new NotImplementedException();
         }
 
+        public List<User>? GetListByUserType(UserType userType)
+        {
+            throw new NotImplementedException();
+        }
+
         public User? GetUser(string login, string password)
         {
             throw new NotImplementedException();

@@ -10,11 +10,7 @@ namespace TourAgency_.Models.Interfaces;
 
 public interface IDbRepos
 {
-    IRepository<Contract> Contracts {  get; }
-    IRepository<Employee> Employees { get; }
     IRepository<Tour> Tours { get; }
-    IRepository<Client> Clients { get; }
-
     IRepository<Direction> Directions { get; }
 
     IRepository<TransportType> TransportTypes { get; }

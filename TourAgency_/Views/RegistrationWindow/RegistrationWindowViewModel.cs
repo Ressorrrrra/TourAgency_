@@ -10,9 +10,9 @@ using System.Windows;
 using TourAgency_.Models.Interfaces;
 using TourAgency_.Models.Entities;
 using TourAgency_.Util;
+using TourAgency_.ViewModels;
 
-
-namespace TourAgency_.ViewModels
+namespace TourAgency_.Views.RegistrationWindow
 {
     public class RegistrationWindowViewModel : ViewModelBase
     {
@@ -30,8 +30,8 @@ namespace TourAgency_.ViewModels
         private UserType userType { get; set; }
         public UserType UserType { get { return userType; } set { userType = value; OnPropertyChanged(nameof(UserType)); } }
 
-        private DateOnly? dateOfBirth { get; set; }
-        public DateOnly? DateOfBirth { get { return dateOfBirth; } set { dateOfBirth = value; OnPropertyChanged(nameof(DateOfBirth)); } }
+        private DateTime dateOfBirth { get; set; }
+        public DateTime DateOfBirth { get { return dateOfBirth; } set { dateOfBirth = value; OnPropertyChanged(nameof(DateOfBirth)); } }
 
         private string? passportNumber {  get; set; }
         public string? PassportNumber { get { return passportNumber; } set { passportNumber = value; OnPropertyChanged(nameof(PassportNumber)); } }
@@ -63,7 +63,7 @@ namespace TourAgency_.ViewModels
                 u.Login = Login;
                 u.Password = Password;
                 u.UserType = UserType.Client;
-                u.DateOfBirth =DateOfBirth;
+                u.DateOfBirth =DateOnly.FromDateTime(DateOfBirth);
                 u.PassportNumber = PassportNumber;
                 u.InternationalPassportNumber = InternationalPassportNumber;
                 userRepository.Create(u);

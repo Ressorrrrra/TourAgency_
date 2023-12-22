@@ -12,9 +12,6 @@ namespace TourAgency_.Models.Entities
     public class TourAgencyContext : DbContext
     {
         public virtual DbSet<Tour> Tours { get; set; }
-        public virtual DbSet<Client> Clients { get; set; }
-        public virtual DbSet<Contract> Contracts { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Direction> Directions { get; set; }
         public virtual DbSet<TransportType> TransportTypes { get; set; }
         public virtual DbSet<TourOperator> TourOperators { get; set; }

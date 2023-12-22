@@ -9,6 +9,9 @@
         xmlns:tourInfoView="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.TourInfoView"
         xmlns:createRequestView="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.CreateRequestView"
         xmlns:clientRequestView="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.ClientRequestsView"
+        xmlns:employeesList="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.EmployeesList"
+        xmlns:createEmployeeView="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.CreateEmployeeView"
+        xmlns:employeeInfo="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.EmployeeInfoView"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
         Title="MainWindow" Height="720" Width="1280">
@@ -29,6 +32,15 @@
             <DataTemplate DataType="{x:Type clientRequestView:ClientRequestsViewModel}">
                 <clientRequestView:ClientRequestsView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type createEmployeeView:CreateEmployeeViewModel}">
+                <createEmployeeView:CreateEmployeeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type employeesList:EmployeesListViewModel}">
+                <employeesList:EmployeesListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type employeeInfo:EmployeeInfoViewModel}">
+                <employeeInfo:EmployeeInfoView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
     <Border>
@@ -48,25 +60,25 @@
                   Height="auto"
                   HorizontalAlignment="Right">
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                    <Image
-                    Source="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Big_Floppa_and_Justin_2_%28cropped%29.jpg/210px-Big_Floppa_and_Justin_2_%28cropped%29.jpg"
-                    x:Name="ProfilePicture"
+
+                <Image
+                    Source="{Binding ProfilePicture, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Width="auto" 
                     Height="auto" 
                     Grid.Column="0" 
                     Grid.RowSpan="3">
-                    </Image>
-                    <TextBlock 
+                </Image>
+                <TextBlock 
                     x:Name="Username" 
                     Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Grid.Column="1" 
@@ -84,31 +96,47 @@
 
                 <TextBlock Grid.Column="1" Grid.Row="2" Margin="10,0,10,0">
                     <Hyperlink>Данные пользователя</Hyperlink>
-                    </TextBlock>
+                </TextBlock>
 
             </Grid>
 
-
-            <ContentControl
+            <Border
+                BorderBrush="Black"
+                BorderThickness="1"
                 Grid.Row="1"
-                Grid.Column="1"
+                Grid.Column="1">
+                <ContentControl
                 Width="auto"
                 Height="auto"
-                Content="{Binding ChildContentView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <StackPanel Orientation="Vertical"
-                        Grid.Column="0"
-                        Grid.Row="1">
-                <Button Margin="10"
+                Content="{Binding ChildContentView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </Border>
+
+            <Border
+                BorderBrush="Black"
+                BorderThickness="1"
+                Grid.Column="0"
+                Grid.Row="1">
+                <StackPanel Orientation="Vertical"
+>
+                    <Button Margin="10"
                         Height="40"
                         Command="{Binding ToursList}">
-                    <TextBlock Text="Туры"/>
-                </Button>
-                <Button Margin="10"
+                        <TextBlock Text="Туры"/>
+                    </Button>
+                    <Button Margin="10"
                         Height="40"
                         Command="{Binding RequestsList}">
-                    <TextBlock Text="Заявки"/>
-                </Button>
-            </StackPanel>
+                        <TextBlock Text="Заявки"/>
+                    </Button>
+
+                    <Button Margin="10"
+                    Height="40"
+                    Visibility="{Binding EmployeeButtonVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Command="{Binding EmployeesList}">
+                        <TextBlock Text="Сотрудники"/>
+                    </Button>
+                </StackPanel>
+            </Border>
 
 
 

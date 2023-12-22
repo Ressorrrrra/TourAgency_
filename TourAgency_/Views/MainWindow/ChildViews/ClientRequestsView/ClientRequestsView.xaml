@@ -20,7 +20,8 @@
                             Text="{Binding Tour.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Margin="0,0,30,0"
                             FontSize="24"/>
-                        <TextBlock Text="{Binding RequestStatus}" FontSize="24"/>
+                        <TextBlock Text="{Binding RequestStatus}" FontSize="24" Margin="0,0,30,0"/>
+                        <TextBlock Text="{Binding ConclusionDate}" FontSize="24"/>
                     </UniformGrid>
                 </DataTemplate>
             </ListView.ItemTemplate>

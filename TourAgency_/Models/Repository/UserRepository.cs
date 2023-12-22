@@ -68,5 +68,11 @@ namespace TourAgency_.Models.Repository
             db.SaveChanges();
         }
 
+        public List<User>? GetListByUserType(UserType userType)
+        {
+            return db.Users.Where(i=> i.UserType.Equals(userType)).ToList();
+        }
+
+
     }
 }

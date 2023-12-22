@@ -29,7 +29,7 @@
                             <Image Source="{Binding ImageLink, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                Width="256"
                Height="192"
-               Stretch="Uniform">
+               Stretch="Fill">
                             </Image>
                             <TextBlock 
                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

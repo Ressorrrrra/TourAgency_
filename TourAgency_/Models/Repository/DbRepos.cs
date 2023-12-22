@@ -12,9 +12,6 @@ namespace TourAgency_.Models.Repository
     public class DbRepos : IDbRepos
     {
         private TourAgencyContext db;
-        private ContractRepository contractRepository;
-        private EmployeeRepository employeeRepository;
-        private ClientRepository clientRepository;
         private TourRepository tourRepository;
         private DirectionRepository directionRepository;
         private TransportTypeRepository transportTypeRepository;
@@ -25,25 +22,7 @@ namespace TourAgency_.Models.Repository
         {
             db = new TourAgencyContext();
         }
-        public IRepository<Contract> Contracts
-        {
-            get
-            {
-                if (contractRepository == null)
-                    contractRepository = new ContractRepository(db);
-                return contractRepository;
-            }
-        }
-
-        public IRepository<Employee> Employees
-        {
-            get
-            {
-                if (employeeRepository == null)
-                    employeeRepository = new EmployeeRepository(db);
-                return employeeRepository;
-            }
-        }
+        
 
         public IRepository<Tour> Tours
         {
@@ -85,16 +64,6 @@ namespace TourAgency_.Models.Repository
             }
         }
 
-
-        public IRepository<Client> Clients
-        {
-            get
-            {
-                if (clientRepository == null)
-                    clientRepository = new ClientRepository(db);
-                return clientRepository;
-            }
-        }
 
         public IRepository<Request> Requests
         {

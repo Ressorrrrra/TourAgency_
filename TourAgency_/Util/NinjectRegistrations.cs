@@ -24,6 +24,7 @@ namespace TourAgency_.Util
             Bind<ITourOperatorRepository>().To<TourOperatorRepository>();
             Bind<IUserRepository>().To<UserRepository>();
             Bind<IRequestRepository>().To<RequestRepository>();
+            Bind<IEmployeeReportService>().To<EmployeeReportService>();
             //Bind<IRequestRepository>().To<RequestRepository>();
             //Bind<ILoggingRepository>().To<UserRepository>();
         }

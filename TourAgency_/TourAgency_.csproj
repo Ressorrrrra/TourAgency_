@@ -7,6 +7,13 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Views\MainWindow\ChildViews\Новая папка1\**" />
+    <EmbeddedResource Remove="Views\MainWindow\ChildViews\Новая папка1\**" />
+    <None Remove="Views\MainWindow\ChildViews\Новая папка1\**" />
+    <Page Remove="Views\MainWindow\ChildViews\Новая папка1\**" />
+  </ItemGroup>
+
 
 
   <ItemGroup>
@@ -19,6 +26,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
     <PackageReference Include="Ninject" Version="3.3.6" />
     <PackageReference Include="Npgsql" Version="7.0.6" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
