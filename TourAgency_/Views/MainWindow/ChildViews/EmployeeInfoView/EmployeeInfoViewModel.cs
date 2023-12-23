@@ -21,7 +21,11 @@ namespace TourAgency_.Views.MainWindow.ChildViews.EmployeeInfoView
 
         private User employee { get; set; }
 
+        private string login { get; set; }
+        public string Login { get { return login; } set { login = value; OnPropertyChanged(nameof(Login)); } }
 
+        private string password { get; set; }
+        public string Password { get { return password; } set { password = value; OnPropertyChanged(nameof(Password)); } }
         private string? name { get; set; }
         public string? Name { get { return name; } set { name = value; OnPropertyChanged(nameof(Name)); } }
 
@@ -53,6 +57,8 @@ namespace TourAgency_.Views.MainWindow.ChildViews.EmployeeInfoView
 
             employee = userRepository.GetItem((int)employeeId);
             Name = employee.Name;
+            Login = employee.Login;
+            Password = employee.Password;
             ProfilePicture = employee.ProfilePictureLink;
             DateOfBirth = employee.DateOfBirth.ToString();
             PassportNumber = employee.PassportNumber;
@@ -79,7 +85,7 @@ namespace TourAgency_.Views.MainWindow.ChildViews.EmployeeInfoView
                     date = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
                     EmployeePerfomance = employeeReportService.EmployeePerfomanceByDate(date, employee.Id);
                     break;
-                case 4:
+                case 3:
                     now = DateTime.Now.AddYears(-1);
                     date = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
                     EmployeePerfomance = employeeReportService.EmployeePerfomanceByDate(date, employee.Id);

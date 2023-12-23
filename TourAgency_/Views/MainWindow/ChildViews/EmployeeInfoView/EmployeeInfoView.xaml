@@ -35,8 +35,9 @@
                 x:Name="Login"
                 Grid.Row="0"
                 Grid.Column="1" 
+                    FontSize="16"
                 Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Margin="0,10,50,10"/>
+                Margin="0,10,30,10"/>
 
             </WrapPanel>
 
@@ -52,6 +53,7 @@
                 x:Name="Password"
                 Grid.Row="1"
                 Grid.Column="1" 
+                FontSize="16"
                 Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="0,10,30,10"/>
 
@@ -70,6 +72,7 @@
                 x:Name="Name"
                 Grid.Row="2"
                 Grid.Column="1" 
+                    FontSize="16"
                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="0,10,30,10"/>
             </WrapPanel>
@@ -87,6 +90,8 @@
                 x:Name="Date"
                 Grid.Column="1"
                 Grid.Row="3"
+                FontSize="16"
+                VerticalAlignment="Center"
                 Text="{Binding DateOfBirth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Margin="0,10,30,10"/>
             </WrapPanel>
@@ -103,6 +108,8 @@
         x:Name="Passport"
         Grid.Row="4"
         Grid.Column="1" 
+        FontSize="16"
+        VerticalAlignment="Center"
         Text="{Binding PassportNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
         Margin="0,10,30,10"/>
             </WrapPanel>
@@ -125,7 +132,10 @@
                         <ComboBoxItem Content="Год" Tag="3"/>
                 </ComboBox>
             </WrapPanel>
-            <TextBlock Text="{Binding EmployeePerfomance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock 
+                FontSize="24"
+                Margin="0,10,0,0"
+                Text="{Binding EmployeePerfomance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
         <Image Grid.Column="0"

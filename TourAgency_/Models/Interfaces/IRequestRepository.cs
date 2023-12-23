@@ -11,6 +11,7 @@ namespace TourAgency_.Models.Interfaces
     public interface IRequestRepository : IRepository<Request>
     {
         public List<Request>? GetRequestsByUser(int userId);
-
+        public List<Request>? GetFreeRequests();
+        public List<Request>? GetRequestsByEmployee(int employeeId, RequestStatus? requestStatus);
     }
 }

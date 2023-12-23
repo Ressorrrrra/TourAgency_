@@ -11,6 +11,6 @@ namespace TourAgency_.Models.Entities
         Sent,
         Processing,
         Accepted,
-        Ddenied
+        Denied
     }
 }

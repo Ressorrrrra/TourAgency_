@@ -11,17 +11,15 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="6*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="7*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
             <ListView ItemsSource="{Binding ToursList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Grid.Row="1"
                       Grid.Column="0"
-                      Grid.ColumnSpan="2"
                       ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -55,13 +53,36 @@
                 </ListView.ItemsPanel>
             </ListView>
 
-        <Button Margin="12"
-                Grid.Row="0"
-                Grid.Column="0"
+
+        <WrapPanel Orientation="Horizontal"
+                 Grid.Row="0"
+                Grid.Column="0">
+            <Button Margin="12"
+
                 x:Name="AddTour"
                 Visibility="{Binding AddButtonVisibility, UpdateSourceTrigger=PropertyChanged}"
                 Command="{Binding AddTour}">
-            <TextBlock>Добавить тур</TextBlock>
-        </Button>
+                <TextBlock>Добавить тур</TextBlock>
+            </Button>
+            <TextBox MinWidth="400"
+                     Margin="10"
+                     Text="{Binding SearchName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <ComboBox SelectedValue="{Binding SelectedOption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedValuePath="Tag"
+                      MinWidth="150"
+                      Margin="10">
+                <ComboBoxItem Content="-" Tag="0"/>
+                <ComboBoxItem Content="Cначала недорогие" Tag="1"/>
+                <ComboBoxItem Content="Сначала дорогие" Tag="2"/>
+
+            </ComboBox>
+            <Button Width="32"
+                    Height="32"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding Search}">
+                <Image Source="/Images/Search.png"/>
+            </Button>
+        </WrapPanel>
     </Grid>
 </UserControl>

@@ -34,6 +34,8 @@ namespace TourAgency_.Models.Repository
             }
         }
 
+
+
         public Request GetItem(int id)
         {
             return db.Requests.Find(id);
@@ -44,9 +46,19 @@ namespace TourAgency_.Models.Repository
             return db.Requests.ToList();
         }
 
+        public List<Request>? GetRequestsByEmployee(int employeeId, RequestStatus? requestStatus)
+        {
+            return db.Requests.Where(i => i.EmployeeId.Equals(employeeId) && (requestStatus == null || i.RequestStatus.Equals(requestStatus))).Include(r => r.Tour).ToList();
+        }
+
         public List<Request>? GetRequestsByUser(int userId)
         {
             return db.Requests.Where(i => i.ClientId.Equals(userId)).Include(r => r.Tour).ToList();
+        }
+
+        public List<Request>? GetFreeRequests()
+        {
+            return db.Requests.Where(i => i.RequestStatus.Equals(RequestStatus.Sent)).ToList();
         }
 
         public void Update(Request item)

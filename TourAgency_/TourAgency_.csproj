@@ -43,11 +43,15 @@
   <ItemGroup>
     <Resource Include="Images\Return.png" />
     <Resource Include="Images\Edit.png" />
+    <Resource Include="Images\Info.png"/>
+    <Resource Include="Images\Search.png"/>
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Images\Return.png" />
     <None Remove="Images\Edit.png" />
+    <None Remove="Images\Info.png"/>
+    <None Remove="Images\Search.png"/>
   </ItemGroup>
 
   <ItemGroup>

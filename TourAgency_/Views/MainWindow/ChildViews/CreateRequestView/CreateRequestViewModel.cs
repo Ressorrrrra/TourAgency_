@@ -77,6 +77,7 @@ namespace TourAgency_.Views.MainWindow.ChildViews.CreateRequestView
             request.TourId = tour.Id;
             request.RequestStatus = RequestStatus.Sent;
             request.Price = tour.Price;
+            request.SendDate = DateTime.Now.ToUniversalTime();
             requestRepository.Create(request);
             MessageBox.Show("Заявка отправлена!");
             ReturnTo.Execute(obj);

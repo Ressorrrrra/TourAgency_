@@ -8,6 +8,14 @@
              d:DataContext="{d:DesignInstance Type=local:ClientRequestsViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+        </Grid.RowDefinitions>
         <ListView ItemsSource="{Binding RequestsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
           Grid.Row="1"
           Grid.Column="0"
@@ -31,5 +39,38 @@
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
         </ListView>
+        <WrapPanel Orientation="Horizontal"
+     Grid.Row="0"
+    Grid.Column="0">
+
+            <TextBox MinWidth="350"
+         Margin="10"
+         Text="{Binding SearchName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+            <ComboBox SelectedValue="{Binding SelectedOptionSort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            SelectedValuePath="Tag"
+                  MinWidth="150"
+                  Margin="10">
+                <ComboBoxItem Content="-" Tag="0"/>
+                <ComboBoxItem Content="Сначала недавние" Tag="1"/>
+                <ComboBoxItem Content="Сначала старые" Tag="2"/>
+            </ComboBox>
+
+            <ComboBox SelectedValue="{Binding SelectedOptionUserType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+SelectedValuePath="Tag"
+      MinWidth="150"
+      Margin="10">
+                <ComboBoxItem Content="Мои заявки" Tag="0"/>
+                <ComboBoxItem Content="Свободные заявки" Tag="1"/>
+            </ComboBox>
+
+            <Button Width="32"
+        Height="32"
+        Background="Transparent"
+        BorderThickness="0"
+        Command="{Binding Search}">
+                <Image Source="/Images/Search.png"/>
+            </Button>
+        </WrapPanel>
     </Grid>
 </UserControl>

@@ -10,6 +10,6 @@ namespace TourAgency_.Models.Interfaces
 {
     public interface ITourRepository : IRepository<Tour>
     {
-
+        public List<Tour>? GetToursByName(string name);
     }
 }

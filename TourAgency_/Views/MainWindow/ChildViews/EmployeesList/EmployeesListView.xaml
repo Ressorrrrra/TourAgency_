@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="5*"></ColumnDefinition>
+
         </Grid.ColumnDefinitions>
 
         <ListView ItemsSource="{Binding Employees, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -40,8 +40,11 @@
                             Width="64"
                             Height="64"
                             VerticalAlignment="Center"
-                            HorizontalAlignment="Center">
-                            
+                            HorizontalAlignment="Center"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <Image Source="/Images/Info.png"/>
+
                         </Button>
 
                     </WrapPanel>
@@ -55,13 +58,48 @@
             </ListView.ItemsPanel>
         </ListView>
 
-        <Button Margin="5,10"
+        <WrapPanel Orientation="Horizontal"
+         Grid.Row="0"
+        Grid.Column="0">
+            <Button Margin="5,10"
              Grid.Row="0"
              Grid.Column="0"
              x:Name="AddTour"
              Visibility="{Binding AddButtonVisibility, UpdateSourceTrigger=PropertyChanged}"
              Command="{Binding CreateEmployee}">
-            <TextBlock>Добавить сотрудника</TextBlock>
-        </Button>
+                <TextBlock>Добавить сотрудника</TextBlock>
+            </Button>
+            <TextBox MinWidth="350"
+             Margin="10"
+             Text="{Binding SearchName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            
+            <ComboBox SelectedValue="{Binding SelectedOptionSort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedValuePath="Tag"
+                      MinWidth="50"
+                      Margin="10">
+                <ComboBoxItem Content="-" Tag="0"/>
+                <ComboBoxItem Content="А-Я" Tag="1"/>
+                <ComboBoxItem Content="Я-А" Tag="2"/>
+            </ComboBox>
+
+            <ComboBox SelectedValue="{Binding SelectedOptionUserType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+    SelectedValuePath="Tag"
+          MinWidth="150"
+          Margin="10">
+                <ComboBoxItem Content="Все пользователи" Tag="0"/>
+                <ComboBoxItem Content="Только клиенты" Tag="1"/>
+                <ComboBoxItem Content="Только сотрудники" Tag="2"/>
+            </ComboBox>
+
+            <Button Width="32"
+            Height="32"
+            Background="Transparent"
+            BorderThickness="0"
+            Command="{Binding Search}">
+                <Image Source="/Images/Search.png"/>
+            </Button>
+        </WrapPanel>
+
+
     </Grid>
 </UserControl>

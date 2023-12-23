@@ -15,6 +15,7 @@ namespace TourAgency_.Models.Entities
         public int RequestStatusId { get; set; }
         public RequestStatus RequestStatus { get; set; }
         public DateTime? ConclusionDate { get; set; }
+        public DateTime? SendDate { get; set; }
         public int Price { get; set; }
 
     }

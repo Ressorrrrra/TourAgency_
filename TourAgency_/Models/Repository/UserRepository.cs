@@ -11,7 +11,7 @@ using TourAgency_.Models.Interfaces;
 
 namespace TourAgency_.Models.Repository
 {
-    public class UserRepository : IRepository<User>, IUserRepository
+    public class UserRepository : IUserRepository
     {
         private TourAgencyContext db;
 
@@ -19,7 +19,16 @@ namespace TourAgency_.Models.Repository
         {
             db = context;
         }
+        public List<User>? GetListByUserNameAndType(string name, UserType? userType)
+        {
+            if (userType == null) return db.Users.Where(i => i.Name.ToLower().Contains(name.ToLower())).ToList();
+            else return db.Users.Where(i => i.Name.ToLower().Contains(name.ToLower()) && i.UserType.Equals(userType)).ToList();
+        }
 
+        public List<User>? GetListByUserType(UserType userType)
+        {
+            return db.Users.Where(i => i.UserType.Equals(userType)).ToList();
+        }
         public User? GetUser(string login, string password)
         {
             return db.Users.FirstOrDefault(g => g.Login.Equals(login) && g.Password.Equals(password));
@@ -66,11 +75,6 @@ namespace TourAgency_.Models.Repository
         void Save(TourAgencyContext db)
         {
             db.SaveChanges();
-        }
-
-        public List<User>? GetListByUserType(UserType userType)
-        {
-            return db.Users.Where(i=> i.UserType.Equals(userType)).ToList();
         }
 
 

@@ -14,7 +14,7 @@
         xmlns:employeeInfo="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.EmployeeInfoView"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
-        Title="MainWindow" Height="720" Width="1280">
+        Title="Турагентство" Height="720" Width="1280">
     <Window.Resources>
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type toursListView:ToursListViewModel}">

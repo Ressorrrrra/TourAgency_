@@ -17,6 +17,13 @@ namespace TourAgency_.Models.Repository
         {
             db = context;
         }
+
+
+        public List<Tour>? GetToursByName(string name)
+        {
+            return db.Tours.Where(i => i.Name.ToLower().Contains(name.ToLower())).ToList();
+        }
+
         public void Create(Tour item)
         {
             db.Tours.Add(item);
@@ -42,6 +49,7 @@ namespace TourAgency_.Models.Repository
         {
             return db.Tours.ToList();
         }
+
 
         public void Update(Tour item)
         {
