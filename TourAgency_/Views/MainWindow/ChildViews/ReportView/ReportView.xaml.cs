@@ -10,24 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TourAgency_
+namespace TourAgency_.Views.MainWindow.ChildViews.ReportView
 {
     /// <summary>
-    /// Логика взаимодействия для CreateClient.xaml
+    /// Логика взаимодействия для ReportView.xaml
     /// </summary>
-    public partial class CreateClient : Window
+    public partial class ReportView : UserControl
     {
-        public CreateClient()
+        public ReportView()
         {
             InitializeComponent();
-        }
-
-        private void AddButton_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
-            this.Close();
         }
     }
 }

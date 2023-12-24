@@ -5,6 +5,7 @@
     <TargetFramework>net6.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="30.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.12">
       <PrivateAssets>all</PrivateAssets>
@@ -43,15 +45,21 @@
   <ItemGroup>
     <Resource Include="Images\Return.png" />
     <Resource Include="Images\Edit.png" />
-    <Resource Include="Images\Info.png"/>
-    <Resource Include="Images\Search.png"/>
+    <Resource Include="Images\Info.png" />
+    <Resource Include="Images\Search.png" />
+    <Resource Include="Images\CheckMark.png" />
+    <Resource Include="Images\LogOut.png" />
+  <Resource Include="Images\Plus.png" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Images\Return.png" />
     <None Remove="Images\Edit.png" />
-    <None Remove="Images\Info.png"/>
-    <None Remove="Images\Search.png"/>
+    <None Remove="Images\Info.png" />
+    <None Remove="Images\Search.png" />
+    <None Remove="Images\CheckMark.png" />
+    <None Remove="Images\LogOut.png" />
+    <None Remove="Images\Plus.png" />
   </ItemGroup>
 
   <ItemGroup>

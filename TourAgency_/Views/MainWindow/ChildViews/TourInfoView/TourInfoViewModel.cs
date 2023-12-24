@@ -49,6 +49,10 @@ namespace TourAgency_.Views.MainWindow.ChildViews.TourInfoView
 
         private int price { get; set; }
         public int Price { get { return price; } set { price = value; OnPropertyChanged(nameof(Price)); } }
+        private Visibility createRequestButton { get; set; }
+        public Visibility CreateRequestButton { get { return createRequestButton; } set { createRequestButton = value; OnPropertyChanged(nameof(CreateRequestButton)); } }
+        private Visibility editButton { get; set; }
+        public Visibility EditButton { get { return editButton; } set { editButton = value; OnPropertyChanged(nameof(EditButton)); } }
 
 
         public ICommand Return { get; }
@@ -56,8 +60,26 @@ namespace TourAgency_.Views.MainWindow.ChildViews.TourInfoView
 
 
 
-        public TourInfoViewModel(object tourId, ViewModelCommand returnTo, ViewModelCommand createRequest)
+        public TourInfoViewModel(object tourId, ViewModelCommand returnTo, ViewModelCommand createRequest, UserType userType)
         {
+            switch (userType)
+            {
+                case UserType.Client:
+                    CreateRequestButton = Visibility.Visible;
+                    EditButton = Visibility.Collapsed;
+                    break;
+                case UserType.Employee:
+                    CreateRequestButton = Visibility.Collapsed;
+                    EditButton = Visibility.Collapsed;
+                    break;
+                case UserType.Administrator:
+                    CreateRequestButton = Visibility.Collapsed;
+                    EditButton = Visibility.Collapsed;
+                    break;
+
+
+            }
+
             var kernel = new StandardKernel(new NinjectRegistrations(), new ReposModule("DbConnection"));
             directionRepository = kernel.Get<IDirectionRepository>();
             tourOperatorRepository = kernel.Get<ITourOperatorRepository>();

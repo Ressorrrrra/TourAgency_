@@ -11,23 +11,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TourAgency_.ViewModels;
 
-namespace TourAgency_
+namespace TourAgency_.Views.MainWindow.AddInDictionary
 {
     /// <summary>
-    /// Логика взаимодействия для CreateTour.xaml
+    /// Логика взаимодействия для AddInDictionary.xaml
     /// </summary>
-    public partial class CreateTour : Window
+    public partial class AddInDictionary : Window
     {
-        public CreateTour()
+        public AddInDictionary(ViewModelCommand close, object option)
         {
             InitializeComponent();
-        }
-
-        private void AddButton_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
-            this.Close();
+            this.DataContext = new AddInDictionaryViewModel(close, option);
         }
     }
 }

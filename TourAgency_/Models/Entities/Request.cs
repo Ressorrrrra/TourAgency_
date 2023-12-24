@@ -12,7 +12,6 @@ namespace TourAgency_.Models.Entities
         public int TourId { get; set; }
         public Tour? Tour { get; set; }
         public string? Reply { get; set; }
-        public int RequestStatusId { get; set; }
         public RequestStatus RequestStatus { get; set; }
         public DateTime? ConclusionDate { get; set; }
         public DateTime? SendDate { get; set; }

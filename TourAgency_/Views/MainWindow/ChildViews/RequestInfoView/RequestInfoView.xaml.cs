@@ -10,24 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TourAgency_
+namespace TourAgency_.Views.MainWindow.ChildViews.RequestInfoView
 {
     /// <summary>
-    /// Логика взаимодействия для CreateTourOperator.xaml
+    /// Логика взаимодействия для RequestInfoView.xaml
     /// </summary>
-    public partial class CreateTourOperator : Window
+    public partial class RequestInfoView : UserControl
     {
-        public CreateTourOperator()
+        public RequestInfoView()
         {
             InitializeComponent();
-        }
-
-        private void AddButton_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
-            this.Close();
         }
     }
 }

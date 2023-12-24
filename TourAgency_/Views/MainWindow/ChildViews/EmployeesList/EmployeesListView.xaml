@@ -21,6 +21,7 @@
                    Grid.Row="1"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
+                  Background="Transparent"
                    ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListView.ItemTemplate>
                 <DataTemplate>

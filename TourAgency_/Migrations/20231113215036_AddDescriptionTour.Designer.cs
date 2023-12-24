@@ -25,7 +25,7 @@ namespace TourAgency_
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("DomainLevel.Client", b =>
+            modelBuilder.Entity("DomainLevel.Клиент", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -210,7 +210,7 @@ namespace TourAgency_
 
             modelBuilder.Entity("DomainLevel.Contract", b =>
                 {
-                    b.HasOne("DomainLevel.Client", "Client")
+                    b.HasOne("DomainLevel.Клиент", "Клиент")
                         .WithMany()
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -228,7 +228,7 @@ namespace TourAgency_
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Client");
+                    b.Navigation("Клиент");
 
                     b.Navigation("Employee");
 

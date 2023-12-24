@@ -69,9 +69,6 @@ namespace TourAgency_.Models.Entities.Migrations
                     b.Property<int>("RequestStatus")
                         .HasColumnType("integer");
 
-                    b.Property<int>("RequestStatusId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime?>("SendDate")
                         .HasColumnType("timestamp with time zone");
 

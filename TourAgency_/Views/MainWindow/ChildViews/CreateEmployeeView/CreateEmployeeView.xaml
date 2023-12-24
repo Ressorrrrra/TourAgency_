@@ -121,11 +121,11 @@
         </Image>
         <Button 
             x:Name="AddButton"
+            Style="{StaticResource regularButton}"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             Grid.Row="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
+            Margin="200,15"
             Padding="50,10"
             Command="{Binding CreateEmployee}">
             <TextBlock Text="Добавить сотрудника"/>

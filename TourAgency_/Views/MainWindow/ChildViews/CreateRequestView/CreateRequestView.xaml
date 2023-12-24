@@ -88,13 +88,24 @@
             Grid.Column="1"
             HorizontalAlignment="Left"
              VerticalAlignment="Center"/>
+        <Button 
+    Width="64"
+    Height="64"
+    Grid.Row="6"
+    Grid.Column="0"
+    HorizontalAlignment="Left"
+    Background="Transparent"
+    BorderThickness="0"
+    Command="{Binding ReturnTo}">
+            <Image Source="/Images/Return.png"/>
+        </Button>
+
 
         <Button Grid.Row="6"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Padding="50,5"
+            Margin="300,10"
+            Style="{StaticResource regularButton}"
                 Command="{Binding CreateRequest}">
             <TextBlock Text="Оформить заявку"/>
         </Button>

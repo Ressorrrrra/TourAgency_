@@ -30,13 +30,14 @@ namespace TourAgency_.Views.MainWindow.ChildViews.ClientRequestsView
         public string searchName { get; set; }
         public string SearchName { get { return searchName; } set { searchName = value; OnPropertyChanged(nameof(SearchName)); } }
 
-        public string selectedOptionUserType { get; set; }
-        public string SelectedOptionUserType { get { return selectedOptionUserType; } set { selectedOptionUserType = value; OnPropertyChanged(nameof(SelectedOptionUserType)); } }
+        public string selectedOptionRequestType { get; set; }
+        public string SelectedOptionRequestType { get { return selectedOptionRequestType; } set { selectedOptionRequestType = value; OnPropertyChanged(nameof(SelectedOptionRequestType)); } }
 
         public string selectedOptionSort { get; set; }
         public string SelectedOptionSort { get { return selectedOptionSort; } set { selectedOptionSort = value; OnPropertyChanged(nameof(SelectedOptionSort)); } }
+        public ICommand RequestInfo { get; }
 
-        public ClientRequestsViewModel(int userId, UserType userType)
+        public ClientRequestsViewModel(int userId, ViewModelCommand requestInfo, UserType userType)
         {
             this.userId = userId;
             this.userType = userType;
@@ -50,7 +51,15 @@ namespace TourAgency_.Views.MainWindow.ChildViews.ClientRequestsView
                 RequestsList = new ObservableCollection<Request>(requestRepository.GetRequestsByUser(userId) ?? new List<Request>());
                 EmployeeButtonsVisibility = Visibility.Collapsed;
             }
-            else RequestsList = new ObservableCollection<Request>(requestRepository.GetRequestsByEmployee(userId) ?? new List<Request>());
+            else
+            {
+                RequestsList = new ObservableCollection<Request>(requestRepository.GetFreeRequests() ?? new List<Request>());
+                SelectedOptionRequestType = "1";
+                SelectedOptionSort = "0";
+            }
+
+            Search = new ViewModelCommand(SearchCommand);
+            RequestInfo = requestInfo;
         }
 
         private void SearchCommand(object obj)
@@ -59,20 +68,21 @@ namespace TourAgency_.Views.MainWindow.ChildViews.ClientRequestsView
             List<Request>? list = new List<Request>();
             if (userType == UserType.Employee)
             {
-                switch (SelectedOptionUserType)
+                switch (SelectedOptionRequestType)
                 {
                     case "0":
                         list = requestRepository.GetRequestsByEmployee(userId, null);
                         break;
                     case "1":
-                        list = requestRepository.GetRequestsByUser(null)
-                        break;
-                    case "2":
-                        list = requestRepository.GetListByUserNameAndType(SearchName, UserType.Employee);
+                        list = requestRepository.GetFreeRequests();
                         break;
                     default:
-                        goto case "0";
+                        goto case "1";
                 }
+            }
+            else
+            {
+                list = requestRepository.GetRequestsByUser(userId);
             }
 
 

@@ -152,11 +152,13 @@
 
             <Button 
                 Grid.Row="5"
-                Padding="25,5"
-                Margin="50,0,70,0"
+                Padding="20,10"
+                Margin="80,0,80,0"
                 VerticalAlignment="Center"
                 Command="{Binding CreateRequest}"
-                CommandParameter="{Binding Id}">
+                CommandParameter="{Binding Id}"
+                Style="{StaticResource regularButton}"
+                Visibility="{Binding CreateRequestButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <TextBlock Text="Оформить заявку"/>
             </Button>
 
@@ -165,7 +167,8 @@
                 Height="64"
                 HorizontalAlignment="Left"
                 Background="Transparent"
-                BorderThickness="0">
+                BorderThickness="0"
+                Visibility="{Binding EditButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <Image Source="/Images/Edit.png"/>
             </Button>
         </StackPanel>

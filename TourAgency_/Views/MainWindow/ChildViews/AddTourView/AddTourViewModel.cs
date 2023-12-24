@@ -25,6 +25,8 @@ namespace TourAgency_.Views.MainWindow.ChildViews.AddTourView
 
         private string name {  get; set; }
         public string Name { get { return name; } set { name = value; OnPropertyChanged(nameof(Name)); } }
+        private string directionSearch { get; set; }
+        public string DirectionSearch { get { return directionSearch; } set { directionSearch = value; OnPropertyChanged(nameof(DirectionSearch)); Directions = directionRepository.GetList().Where(i => i.City.Contains(DirectionSearch) || i.Country.Contains(DirectionSearch)).ToList(); } }
         private string description { get; set; }
         public string Description { get { return description; } set { description = value; OnPropertyChanged(nameof(Description)); } }
         private string? image { get; set; }
@@ -71,11 +73,15 @@ namespace TourAgency_.Views.MainWindow.ChildViews.AddTourView
         ViewModelCommand ReturnToList;
         public ICommand AddTour { get; }
         public ICommand LoadImage { get; }
+        public ICommand AddDirection { get; }
+        public ICommand AddTransportType { get; }
+        public ICommand AddTourOperator { get; }
 
-        
+        private ViewModelCommand AddInDictionary { get; set; }
 
-        public AddTourViewModel(ViewModelCommand returnToList)
+        public AddTourViewModel(ViewModelCommand returnToList, ViewModelCommand addInDictionary)
         {
+            AddInDictionary = addInDictionary;
             ArrivalDate = DateTime.Now;
             DepartureDate = DateTime.Now;
             var kernel = new StandardKernel(new NinjectRegistrations(), new ReposModule("DbConnection"));
@@ -85,6 +91,9 @@ namespace TourAgency_.Views.MainWindow.ChildViews.AddTourView
             tourRepository = kernel.Get<ITourRepository>();
 
             AddTour = new ViewModelCommand(AddTourCommand);
+            AddDirection = new ViewModelCommand(AddDirectionCommand);
+            AddTourOperator = new ViewModelCommand(AddTourOperatorCommand);
+            AddTransportType = new ViewModelCommand(AddTransportTypeCommand);
 
             Directions = directionRepository.GetList();
             DirectionsId = Directions.Select(i => i.Id).ToList();
@@ -116,5 +125,25 @@ namespace TourAgency_.Views.MainWindow.ChildViews.AddTourView
             ReturnToList.Execute(obj);
         }
 
+        private void AddDirectionCommand(object obj)
+        {
+            AddInDictionary.Execute(nameof(Direction));
+            Directions = directionRepository.GetList();
+            DirectionsId = Directions.Select(i => i.Id).ToList();
+        }
+
+        private void AddTransportTypeCommand(object obj)
+        {
+            AddInDictionary.Execute(nameof(TransportType));
+            TransportTypes = transportTypeRepository.GetList();
+            TransportTypesId = TransportTypes.Select(i => i.Id).ToList();
+        }
+
+        private void AddTourOperatorCommand(object obj)
+        {
+            AddInDictionary.Execute(nameof(TourOperator));
+            TourOperators = tourOperatorRepository.GetList();
+            TourOperatorsId = TourOperators.Select(i => i.Id).ToList();
+        }
     }
 }

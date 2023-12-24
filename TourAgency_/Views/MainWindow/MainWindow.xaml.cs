@@ -21,10 +21,10 @@ namespace TourAgency_.Views.MainWindow
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(ViewModelCommand logout, ViewModelCommand addDictionary)
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel();
+            this.DataContext = new MainWindowViewModel(logout, addDictionary);
         }
     }
 }

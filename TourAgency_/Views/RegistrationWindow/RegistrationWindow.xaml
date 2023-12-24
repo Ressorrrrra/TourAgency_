@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TourAgency_.Views.RegistrationWindow"
         mc:Ignorable="d"
         Title="RegistrationWindow" Height="450" Width="800">
-    <Grid Margin="20,50,20,50">
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -20,6 +20,18 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+
+        <Border 
+                 Grid.Column="0"
+     Grid.ColumnSpan="2"
+         Grid.RowSpan="7">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.7">
+                    <GradientStop Color="{StaticResource primaryBackColor1}"  Offset="0"/>
+                    <GradientStop Color="{StaticResource secondaryBackColor1}"  Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
         <TextBlock
     Grid.Column="0"
     Grid.Row="0"
@@ -96,15 +108,17 @@
     x:Name="Date"
     Grid.Column="1"
     Grid.Row="3"
+            VerticalAlignment="Center"
     SelectedDate="{Binding DateOfBirth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
     Margin="30,10,30,10"/>
         <Button 
+    Style="{StaticResource regularButton}"
     x:Name="AddButton"
     Grid.Column="0"
     Grid.Row="6"
     
     Grid.ColumnSpan="2"
-    Margin="200, 20, 200, 0"
+    Margin="200, 10, 200, 10"
     Command="{Binding CreateAccount}">
             <TextBlock Text="Зарегистрироваться"/>
         </Button>

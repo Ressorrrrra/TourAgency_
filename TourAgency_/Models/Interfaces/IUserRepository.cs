@@ -16,7 +16,7 @@ namespace TourAgency_.Models.Interfaces
         User? GetUserByLogin(string login);
 
         List<User>? GetListByUserType(UserType userType);
-        List<User>? GetListByUserNameAndType(string name);
+        List<User>? GetListByUserNameAndType(string name, UserType? userType);
 
     }
 }

@@ -20,6 +20,7 @@
             <ListView ItemsSource="{Binding ToursList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Grid.Row="1"
                       Grid.Column="0"
+                      Background="Transparent"
                       ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -37,12 +38,14 @@
                                 <TextBlock Text="Звездность отеля:"/>
                                 <TextBlock 
                                     Text="{Binding HotelStarsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                <Button Command="{Binding DataContext.ViewTour, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
-                                        CommandParameter="{Binding Id}">
-                                    <TextBlock Text="Подробнее"/>
-                                </Button>
+                                
                             </StackPanel>
-                        </WrapPanel>
+                        <Button Command="{Binding DataContext.ViewTour, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+        CommandParameter="{Binding Id}"
+        Style="{StaticResource regularButton}">
+                            <TextBlock Text="Подробнее"/>
+                        </Button>
+                    </WrapPanel>
 
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -61,7 +64,8 @@
 
                 x:Name="AddTour"
                 Visibility="{Binding AddButtonVisibility, UpdateSourceTrigger=PropertyChanged}"
-                Command="{Binding AddTour}">
+                Command="{Binding AddTour}"
+                    Style="{StaticResource regularButton}">
                 <TextBlock>Добавить тур</TextBlock>
             </Button>
             <TextBox MinWidth="400"

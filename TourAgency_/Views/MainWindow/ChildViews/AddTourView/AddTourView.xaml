@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.AddTourView"
+              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=local:AddTourViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -50,56 +51,91 @@
                     <WrapPanel Orientation="Vertical">
                         <TextBlock Text="Направление:"
                                Margin="0,0,50,0"/>
-                        <ComboBox ItemsSource="{Binding Directions}" 
+                        <WrapPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <ComboBox ItemsSource="{Binding Directions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                               SelectedValuePath="Id"
+                              MinWidth="90"
+                              
                               SelectedValue="{Binding ChosenDirectionId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              Margin="0,10,10,0">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock>
-                                        <Run Text="{Binding City}" />
-                                        <Run Text=", " />
-                                        <Run Text="{Binding Country}" />
-                                    </TextBlock>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
+                              Margin="0,0,10,0">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <Run Text="{Binding City}" />
+                                            <Run Text=", " />
+                                            <Run Text="{Binding Country}" />
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <Button Height="24" Width="24"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Command="{Binding AddDirection}">
+                                <Image Source="/Images/Plus.png"/>
+
+                            </Button >
+                        </WrapPanel>
+                        
                     </WrapPanel>
 
-                    <WrapPanel Orientation="Vertical">
+                    <WrapPanel Orientation="Vertical" >
                         <TextBlock Text="Вид транспорта:"
                                Margin="0,0,50,0"/>
-                        <ComboBox 
-                        ItemsSource="{Binding TransportTypes}"
+                        <WrapPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <ComboBox 
+                        ItemsSource="{Binding TransportTypes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SelectedValuePath="Id"
+                                MinWidth="90"
                         SelectedValue="{Binding ChosenTransportTypeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Margin="0,10,10,0"> 
-                        <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock>
+                        Margin="0,0,10,0">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
                                         <Run Text="{Binding Name}" />
-                                    </TextBlock>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <Button Height="24" Width="24"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                    Command="{Binding AddTransportType}">
+                                <Image Source="/Images/Plus.png"/>
+
+                            </Button >
+                        </WrapPanel>
+
                     </WrapPanel>
 
                     <WrapPanel Orientation="Vertical">
                         <TextBlock Text="Туроператор:"
                                 Margin="0,0,50,0"/>
-                        <ComboBox                    
-                    ItemsSource="{Binding TourOperators}"
-                    SelectedValuePath="Id" 
-                    SelectedValue="{Binding ChosenTourOperatorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Margin="0,10,30,0">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock>
-                                <Run Text="{Binding Name}" />
-                                    </TextBlock>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
+                        <WrapPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <ComboBox                    
+                            ItemsSource="{Binding TourOperators, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedValuePath="Id" 
+                            SelectedValue="{Binding ChosenTourOperatorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Margin="0,0,0,0"
+                               MinWidth="90">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <Run Text="{Binding Name}" />
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <Button Height="24" Width="24"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Command="{Binding AddTourOperator}">
+                                <Image Source="/Images/Plus.png"/>
+
+                            </Button >
+                        </WrapPanel>
+                        
                     </WrapPanel>
 
 
@@ -159,6 +195,7 @@
         <Button Grid.Column="0"
                 Grid.Row="5"
                 Grid.ColumnSpan="2"
+                Style="{StaticResource regularButton}"
                 Margin="250,20,250,20"
                 Command="{Binding AddTour}">
             <TextBlock Text="Создать тур"/>

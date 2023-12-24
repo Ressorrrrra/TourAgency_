@@ -113,7 +113,28 @@
         Text="{Binding PassportNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
         Margin="0,10,30,10"/>
             </WrapPanel>
-            <WrapPanel Orientation="Horizontal">
+
+            <WrapPanel Orientation="Horizontal"
+                       Visibility="{Binding ClientControls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TextBlock
+                Grid.Column="0"
+                Grid.Row="4"
+                Text="Номер загранпаспорта:"
+                TextAlignment="Left"
+                FontSize="20"
+                VerticalAlignment="Center"/>
+                <TextBlock
+                x:Name="InternationalPassport"
+                Grid.Row="4"
+                Grid.Column="1" 
+                FontSize="16"
+                VerticalAlignment="Center"
+                Text="{Binding InternationalPassportNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Margin="0,10,30,10"/>
+            </WrapPanel>
+
+            <WrapPanel Orientation="Horizontal"
+                       Visibility="{Binding EmployeeControls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <TextBlock Text="Заявок обработано за:"
                            FontSize="20"/>
 
@@ -131,13 +152,56 @@
                         <ComboBoxItem Content="Месяц" Tag="2"/>
                         <ComboBoxItem Content="Год" Tag="3"/>
                 </ComboBox>
+                
             </WrapPanel>
             <TextBlock 
+                Visibility="{Binding EmployeeControls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"            
                 FontSize="24"
                 Margin="0,10,0,0"
                 Text="{Binding EmployeePerfomance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <WrapPanel Orientation="Horizontal"
+           Visibility="{Binding ClientControls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TextBlock Text="Туров куплено за:"
+               FontSize="20"/>
+
+                <ComboBox SelectedValue="{Binding SelectedOption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+              SelectedValuePath="Tag"
+              MinWidth="150"
+              Margin="5,5">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding CalculatePerfomance}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ComboBoxItem Content="День" Tag="0"/>
+                    <ComboBoxItem Content="Неделю" Tag="1"/>
+                    <ComboBoxItem Content="Месяц" Tag="2"/>
+                    <ComboBoxItem Content="Год" Tag="3"/>
+                </ComboBox>
+
+            </WrapPanel>
+            <TextBlock 
+    Visibility="{Binding ClientControls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"            
+    FontSize="24"
+    Margin="0,10,0,0"
+    Text="{Binding ClientTours, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Button Command="{Binding ReturnTo}"
+                Grid.Column="1"
+                Grid.Row="0"
+                    Width="64"
+                    Height="64"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    HorizontalAlignment="Left"
+                    Margin="10,0,0,0">
+                <Image Source="/Images/Return.png"/>
+            </Button>
         </StackPanel>
 
+
+        
         <Image Grid.Column="0"
            Grid.Row="0"
            Source="{Binding ProfilePicture, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">

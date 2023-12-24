@@ -19,6 +19,8 @@ using System.Windows;
 using TourAgency_.Views.MainWindow.ChildViews.EmployeesList;
 using TourAgency_.Views.MainWindow.ChildViews.CreateEmployeeView;
 using TourAgency_.Views.MainWindow.ChildViews.EmployeeInfoView;
+using TourAgency_.Views.MainWindow.ChildViews.RequestInfoView;
+using TourAgency_.Views.MainWindow.ChildViews.ReportView;
 
 namespace TourAgency_.Views.MainWindow
 {
@@ -30,11 +32,17 @@ namespace TourAgency_.Views.MainWindow
 
         public Visibility employeeButtonVisibility {  get; set; }
         public Visibility EmployeeButtonVisibility { get { return employeeButtonVisibility; } set { employeeButtonVisibility = value; OnPropertyChanged(nameof(EmployeeButtonVisibility)); } }
+        public Visibility requestsButtonVisibility { get; set; }
+        public Visibility RequestsButtonVisibility { get { return requestsButtonVisibility; } set { requestsButtonVisibility = value; OnPropertyChanged(nameof(RequestsButtonVisibility)); } }
+        public Visibility reportsButtonVisibility { get; set; }
+        public Visibility ReportsButtonVisibility { get { return reportsButtonVisibility; } set { reportsButtonVisibility = value; OnPropertyChanged(nameof(ReportsButtonVisibility)); } }
         public ICommand ToursList { get; }
         public ICommand RequestsList { get; }
 
         public ICommand EmployeesList { get; }
         public ICommand EmployeeInfo { get; }
+        public ICommand Report { get; }
+        public ICommand LogOut { get; }
 
         private User user;
 
@@ -46,6 +54,8 @@ namespace TourAgency_.Views.MainWindow
         private TourInfoViewModel tourInfoView;
         private ClientRequestsViewModel? clientRequestsView;
         private EmployeesListViewModel? employeesListView;
+
+        private ReportViewModel? reportView;
 
         public ViewModelBase ChildContentView { get { return childContentView; } set { childContentView = value; OnPropertyChanged(nameof(ChildContentView)); } }
         private string username { get; set; }
@@ -60,7 +70,7 @@ namespace TourAgency_.Views.MainWindow
 
 
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(ViewModelCommand logout, ViewModelCommand addDictionary)
         {
             var kernel = new StandardKernel(new NinjectRegistrations(), new ReposModule("DbConnection"));
             userRepository = kernel.Get<IUserRepository>();
@@ -71,26 +81,44 @@ namespace TourAgency_.Views.MainWindow
             usertype = user.UserType.ToString();
             ProfilePicture = user.ProfilePictureLink;
 
-            if (user.UserType != UserType.Administrator) EmployeeButtonVisibility = Visibility.Collapsed;
-            else EmployeeButtonVisibility = Visibility.Visible;
+            if (user.UserType != UserType.Administrator)
+            {
+                ReportsButtonVisibility = Visibility.Collapsed;
+                EmployeeButtonVisibility = Visibility.Collapsed;
+                RequestsButtonVisibility = Visibility.Visible;
+            }
+            else
+            {
+                RequestsButtonVisibility = Visibility.Collapsed;
+                EmployeeButtonVisibility = Visibility.Visible;
+                ReportsButtonVisibility = Visibility.Visible;
+            }
 
-            addTourView = new AddTourViewModel(new ViewModelCommand(UpdatedToursListCommand));
+                addTourView = new AddTourViewModel(new ViewModelCommand(UpdatedToursListCommand), addDictionary);
             toursListView = new ToursListViewModel(user.UserType, new ViewModelCommand(AddTourCommand), ReturnFromTourInfo(new ViewModelCommand(ToursListCommand)));
 
             ChildContentView = toursListView;
-            clientRequestsView = new ClientRequestsViewModel(user.Id);
+            clientRequestsView = new ClientRequestsViewModel(user.Id, new ViewModelCommand(RequestInfoCommand), user.UserType);
 
             ToursList = new ViewModelCommand(ToursListCommand);
             RequestsList = new ViewModelCommand(ClientRequestsViewCommand);
             EmployeesList = new ViewModelCommand(EmployeesListCommand);
             EmployeeInfo = new ViewModelCommand(EmployeeInfoCommand);
-
+            Report = new ViewModelCommand(ReportCommand);
+            LogOut = logout;
         }
 
         private void AddTourCommand(object obj)
         { 
             ChildContentView = addTourView;
         }
+
+        private void ReportCommand(object obj)
+        {
+            if (reportView == null) reportView = new ReportViewModel();
+            ChildContentView = reportView;
+        }
+        private void RequestInfoCommand(object requestId) => ChildContentView = new RequestInfoViewModel(new ViewModelCommand(UpdatedClientRequestsViewCommand), requestId, user.UserType, user.Id);
         private void ToursListCommand(object obj) => ChildContentView = toursListView;
         private void UpdatedToursListCommand(object obj)
         {
@@ -127,14 +155,18 @@ namespace TourAgency_.Views.MainWindow
         {
             return new ViewModelCommand(delegate (object id)
             {
-                tourInfoView = new TourInfoViewModel(id, parent, new ViewModelCommand(CreateRequestCommand));
+                tourInfoView = new TourInfoViewModel(id, parent, new ViewModelCommand(CreateRequestCommand), user.UserType);
                 ChildContentView = tourInfoView;
             });
         }
 
-        private void ClientRequestsViewCommand(object obj) => ChildContentView = new ClientRequestsViewModel(user.Id);
+        private void ClientRequestsViewCommand(object obj) => ChildContentView = new ClientRequestsViewModel(user.Id, new ViewModelCommand(RequestInfoCommand), user.UserType);
 
-
+        private void UpdatedClientRequestsViewCommand(object obj)
+        {
+            clientRequestsView = new ClientRequestsViewModel(user.Id, new ViewModelCommand(RequestInfoCommand), user.UserType);
+            ChildContentView = clientRequestsView;
+        }
 
     }
 }

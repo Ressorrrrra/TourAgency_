@@ -1,0 +1,147 @@
+﻿<UserControl x:Class="TourAgency_.Views.MainWindow.ChildViews.ReportView.ReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TourAgency_.Views.MainWindow.ChildViews.ReportView"
+              d:DataContext="{d:DesignInstance Type=local:ReportViewModel}"
+             mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+        <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Text="Сформировать отчёт о: "
+                       VerticalAlignment="Center"/>
+            <ComboBox SelectedValue="{Binding SelectedOption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedValuePath="Tag"
+                        MinWidth="150"
+                      Margin="5"
+                      VerticalAlignment="Center">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding CreateReport}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ComboBoxItem Content="Продажах" Tag="0"/>
+                <ComboBoxItem Content="Работе сотрудников" Tag="1"/>
+            </ComboBox>
+            <TextBlock Margin ="10,0" Text="От "
+                       VerticalAlignment="Center"/>
+            <DatePicker VerticalAlignment="Center"
+                        SelectedDate="{Binding Date1}"
+                        MinWidth="120">
+                        
+            </DatePicker>
+
+            <TextBlock Margin ="10,0" Text="До "
+           VerticalAlignment="Center"/>
+            <DatePicker VerticalAlignment="Center"
+            SelectedDate="{Binding Date2}"
+            MinWidth="120">
+            </DatePicker>
+            <Button Height="24"  Width="24"
+                    Margin="10,0,0,0"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding CreateReport}">
+                <Image Source="/Images/CheckMark.png"/>
+
+            </Button>
+
+            <Button Command="{Binding DownloadReport}"
+                    Margin="20,5,0,5">
+                <TextBlock Text="Скачать отчёт"/>
+            </Button>
+
+        </WrapPanel>
+        <WrapPanel Grid.Row="1" Orientation="Horizontal">
+            <WrapPanel Orientation="Vertical" Visibility="{Binding TourReportVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock Text="Продано туров:"/>
+                    <TextBlock Text="{Binding TotalTours, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock Text="Доход:"/>
+                    <TextBlock Text="{Binding TotalIncome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+
+                <TextBlock Text="Самые популярные туры и их продажи:"/>
+                <ListView ItemsSource="{Binding MostPopularTours, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          Background="Transparent">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel Orientation="Horizontal">
+                                <Image Source="{Binding Tour.ImageLink, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Width="64"
+                 Height="64"
+                 Stretch="Fill">
+                                </Image>
+                                <TextBlock 
+                  Text="{Binding Tour.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  Width="270"
+                  Height="20"/>
+                                <TextBlock Text="{Binding SoldAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    VerticalAlignment="Center"/>
+                            </WrapPanel>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+            </WrapPanel>
+
+            <WrapPanel  Orientation="Vertical" Visibility="{Binding EmployeeReportVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <WrapPanel Orientation="Horizontal" >
+                    <TextBlock Text="Обработано заявок:"/>
+                    <TextBlock Text="{Binding TotalRequests, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+
+                <TextBlock Text="Самые эффективые работники и количество обработанных ими заявок:"/>
+                <ListView ItemsSource="{Binding MostEfficientEmployees, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          Background="Transparent">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel Orientation="Horizontal">
+                                <Image Source="{Binding User.ProfilePictureLink, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+         Width="64"
+         Height="64"
+         Stretch="Fill">
+                                </Image>
+                                <TextBlock 
+          Text="{Binding User.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+          Width="270"
+          Height="20"/>
+                                <TextBlock Text="{Binding Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            VerticalAlignment="Center"/>
+                            </WrapPanel>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+            </WrapPanel>
+        </WrapPanel>
+       
+
+
+    </Grid>
+</UserControl>

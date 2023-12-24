@@ -12,8 +12,8 @@ using TourAgency_.Models.Entities;
 namespace TourAgency_
 {
     [DbContext(typeof(TourAgencyContext))]
-    [Migration("20231022112706_ChangedCostToInt")]
-    partial class ChangedCostToInt
+    [Migration("20231224100557_DeleteRequestStatusId")]
+    partial class DeleteRequestStatusId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,71 +25,7 @@ namespace TourAgency_
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("DAL.Models.Клиент", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("InternationalPassportNumber")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("userName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("PassportNumber")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("TourCount")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Clients");
-                });
-
-            modelBuilder.Entity("DAL.Models.Contract", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClientId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateOnly>("ConclusionDate")
-                        .HasColumnType("date");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TotalCost")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TourId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.HasIndex("TourId");
-
-                    b.ToTable("Contracts");
-                });
-
-            modelBuilder.Entity("DAL.Models.Direction", b =>
+            modelBuilder.Entity("TourAgency_.Models.Entities.Direction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -110,7 +46,7 @@ namespace TourAgency_
                     b.ToTable("Directions");
                 });
 
-            modelBuilder.Entity("DAL.Models.Employee", b =>
+            modelBuilder.Entity("TourAgency_.Models.Entities.Request", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -118,19 +54,42 @@ namespace TourAgency_
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ContractCount")
+                    b.Property<int>("ClientId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("userName")
-                        .IsRequired()
+                    b.Property<DateTime?>("ConclusionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Reply")
                         .HasColumnType("text");
+
+                    b.Property<int>("RequestStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("SendDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TourId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employees");
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("TourId");
+
+                    b.ToTable("Requests");
                 });
 
-            modelBuilder.Entity("DAL.Models.Tour", b =>
+            modelBuilder.Entity("TourAgency_.Models.Entities.Tour", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -144,13 +103,20 @@ namespace TourAgency_
                     b.Property<DateOnly>("DepartureDate")
                         .HasColumnType("date");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("DirectionId")
                         .HasColumnType("integer");
 
                     b.Property<int>("HotelStarsCount")
                         .HasColumnType("integer");
 
-                    b.Property<string>("userName")
+                    b.Property<string>("ImageLink")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -174,7 +140,7 @@ namespace TourAgency_
                     b.ToTable("Tours");
                 });
 
-            modelBuilder.Entity("DAL.Models.TourOperator", b =>
+            modelBuilder.Entity("TourAgency_.Models.Entities.TourOperator", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -182,7 +148,7 @@ namespace TourAgency_
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("userName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -191,7 +157,7 @@ namespace TourAgency_
                     b.ToTable("TourOperators");
                 });
 
-            modelBuilder.Entity("DAL.Models.TransportTypeName", b =>
+            modelBuilder.Entity("TourAgency_.Models.Entities.TransportType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -199,7 +165,7 @@ namespace TourAgency_
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Transport")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -208,48 +174,85 @@ namespace TourAgency_
                     b.ToTable("TransportTypes");
                 });
 
-            modelBuilder.Entity("DAL.Models.Contract", b =>
+            modelBuilder.Entity("TourAgency_.Models.Entities.User", b =>
                 {
-                    b.HasOne("DAL.Models.Клиент", "Клиент")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly?>("DateOfBirth")
+                        .HasColumnType("date");
+
+                    b.Property<string>("InternationalPassportNumber")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PassportNumber")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProfilePictureLink")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserType")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("TourAgency_.Models.Entities.Request", b =>
+                {
+                    b.HasOne("TourAgency_.Models.Entities.User", "Client")
                         .WithMany()
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAL.Models.Employee", "Employee")
+                    b.HasOne("TourAgency_.Models.Entities.User", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeId");
 
-                    b.HasOne("DAL.Models.Tour", "Tour")
+                    b.HasOne("TourAgency_.Models.Entities.Tour", "Tour")
                         .WithMany()
                         .HasForeignKey("TourId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Клиент");
+                    b.Navigation("Client");
 
                     b.Navigation("Employee");
 
                     b.Navigation("Tour");
                 });
 
-            modelBuilder.Entity("DAL.Models.Tour", b =>
+            modelBuilder.Entity("TourAgency_.Models.Entities.Tour", b =>
                 {
-                    b.HasOne("DAL.Models.Direction", "Direction")
+                    b.HasOne("TourAgency_.Models.Entities.Direction", "Direction")
                         .WithMany()
                         .HasForeignKey("DirectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAL.Models.TourOperator", "TourOperator")
+                    b.HasOne("TourAgency_.Models.Entities.TourOperator", "TourOperator")
                         .WithMany()
                         .HasForeignKey("TourOperatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAL.Models.TransportTypeName", "TransportTypeName")
+                    b.HasOne("TourAgency_.Models.Entities.TransportType", "TransportType")
                         .WithMany()
                         .HasForeignKey("TransportTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -259,7 +262,7 @@ namespace TourAgency_
 
                     b.Navigation("TourOperator");
 
-                    b.Navigation("TransportTypeName");
+                    b.Navigation("TransportType");
                 });
 #pragma warning restore 612, 618
         }

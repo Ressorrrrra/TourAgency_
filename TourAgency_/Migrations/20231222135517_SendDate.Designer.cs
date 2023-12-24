@@ -218,7 +218,7 @@ namespace TourAgency_
 
             modelBuilder.Entity("TourAgency_.Models.Entities.Request", b =>
                 {
-                    b.HasOne("TourAgency_.Models.Entities.User", "Client")
+                    b.HasOne("TourAgency_.Models.Entities.User", "Клиент")
                         .WithMany()
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -234,7 +234,7 @@ namespace TourAgency_
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Client");
+                    b.Navigation("Клиент");
 
                     b.Navigation("Employee");
 
